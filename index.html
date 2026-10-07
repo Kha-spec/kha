@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kh_DTS | Fashion Store - Be Yourself | Hải Hậu, Nam Định</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0B0B0B',
+                        darker: '#050505',
+                        card: '#141414',
+                        accent: '#E6E6E6',
+                        neon: '#FFFFFF',
+                        subtext: '#9E9E9E',
+                        bordercol: '#222222',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark text-white font-sans antialiased selection:bg-white selection:text-black">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-darker border-b border-bordercol py-2 px-4 text-xs tracking-wider text-center flex items-center justify-center gap-2 text-gray-300">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>FREESHIP TOÀN QUỐC TỪ 2 SẢN PHẨM • GHÉ THỬ ĐỒ TRỰC TIẾP TẠI TT. YÊN ĐỊNH, HẢI HẬU</span>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 bg-dark/90 backdrop-blur-md border-b border-bordercol">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="lg:hidden text-2xl p-2 text-gray-300 hover:text-white" aria-label="Menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <img src="assets/logo.png" alt="Kh_DTS Logo" class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-8 text-sm font-semibold tracking-wider uppercase text-gray-300">
+                <a href="#hero" class="hover:text-white transition-colors duration-200">Trang Chủ</a>
+                <a href="#categories" class="hover:text-white transition-colors duration-200">Bộ Sưu Tập</a>
+                <a href="#products" class="hover:text-white transition-colors duration-200">Trending Now</a>
+                <a href="#size-guide" class="hover:text-white transition-colors duration-200">Check Size</a>
+                <a href="#store" class="hover:text-white transition-colors duration-200">Store Hải Hậu</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center space-x-4">
+                <button onclick="scrollToProducts()" class="hidden sm:flex items-center gap-2 text-xs uppercase font-bold tracking-wider px-3 py-2 rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Tìm đồ</span>
+                </button>
+                <button onclick="openCartDrawer()" class="relative p-2.5 rounded-full bg-card border border-bordercol hover:border-gray-500 transition-colors">
+                    <i class="fa-solid fa-bag-shopping text-base"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-white text-black font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-darker border-b border-bordercol px-6 py-6 space-y-4">
+            <a href="#hero" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Trang Chủ</a>
+            <a href="#categories" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Bộ Sưu Tập</a>
+            <a href="#products" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Trending Now</a>
+            <a href="#size-guide" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Bảng Chọn Size</a>
+            <a href="#store" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Store Hải Hậu</a>
+            <div class="pt-4 border-t border-bordercol flex items-center justify-between text-xs text-subtext">
+                <span>Hotline: <strong class="text-white">545654254245</strong></span>
+                <span class="text-emerald-400">Yên Định, Nam Định</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (Phong cách Streetwear NEON Reference) -->
+    <section id="hero" class="relative overflow-hidden min-h-[580px] lg:min-h-[680px] flex items-center border-b border-bordercol">
+        <!-- Hero Background Visual -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1920&q=80" 
+                 alt="Streetwear Look" 
+                 class="w-full h-full object-cover object-top opacity-35 filter grayscale contrast-125">
+            <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs tracking-widest uppercase mb-6 font-semibold">
+                    <span class="text-amber-300"><i class="fa-solid fa-bolt"></i></span>
+                    <span>NEW SEASON COLLECTION 2026</span>
+                </div>
+                <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight leading-none mb-6">
+                    STREETWEAR.<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">BE YOURSELF.</span>
+                </h1>
+                <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-8 max-w-xl">
+                    Tuyển tập Áo thun Oversize, Hoodie nỉ bông cao cấp & Phụ kiện chuẩn gu Gen Z. Form dáng phóng khoáng, chất vải dày dặn, giá chỉ từ <strong>150k - 250k</strong> cho giới trẻ Nam Định.
+                </p>
+                <div class="flex flex-wrap gap-4 items-center">
+                    <a href="#products" class="px-8 py-3.5 bg-white text-black font-extrabold text-xs uppercase tracking-widest rounded-none hover:bg-gray-200 transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg">
+                        MUA NGAY (SHOP NOW)
+                    </a>
+                    <a href="#store" class="px-7 py-3.5 border border-white/30 text-white font-bold text-xs uppercase tracking-widest rounded-none hover:bg-white/10 transition-all duration-200">
+                        GHÉ STORE HẢI HẬU
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition Banner (Giống layout tham khảo) -->
+    <section class="border-b border-bordercol bg-darker py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center lg:text-left">
+                <div class="flex flex-col lg:flex-row items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-card border border-bordercol flex items-center justify-center text-white text-base">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider">FREESHIP TỪ 2 ĐƠN</h4>
+                        <p class="text-[11px] text-subtext">Giao nhanh toàn quốc & nội tỉnh</p>
+                    </div>
+                </div>
+                <div class="flex flex-col lg:flex-row items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-card border border-bordercol flex items-center justify-center text-white text-base">
+                        <i class="fa-solid fa-shirt"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider">COTTON 100% 2 CHIỀU</h4>
+                        <p class="text-[11px] text-subtext">Định lượng 250gsm dày dặn, mịn mát</p>
+                    </div>
+                </div>
+                <div class="flex flex-col lg:flex-row items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-card border border-bordercol flex items-center justify-center text-white text-base">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider">ĐỔI TRẢ 7 NGÀY</h4>
+                        <p class="text-[11px] text-subtext">Hỗ trợ đổi size nếu mặc không vừa</p>
+                    </div>
+                </div>
+                <div class="flex flex-col lg:flex-row items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-card border border-bordercol flex items-center justify-center text-white text-base">
+                        <i class="fa-solid fa-shop"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider">THỬ ĐỒ TẠI HẢI HẬU</h4>
+                        <p class="text-[11px] text-subtext">Cửa hàng ngay TT. Yên Định</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop By Category Section (3 danh mục chính: Áo thun, Hoodie, Phụ kiện) -->
+    <section id="categories" class="py-16 lg:py-24 border-b border-bordercol">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-xl mx-auto mb-12">
+                <span class="text-xs font-bold tracking-widest text-subtext uppercase">KHÁM PHÁ THEO DANH MỤC</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight mt-1">SHOP BY CATEGORY</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Category 1: Áo Thun -->
+                <div onclick="filterCategory('tshirt')" class="group relative h-96 overflow-hidden bg-card border border-bordercol cursor-pointer transition-all duration-300 hover:border-gray-400">
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" 
+                         alt="Áo Thun Kh_DTS" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale contrast-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6 text-center">
+                        <h3 class="font-display text-2xl font-bold uppercase tracking-wider mb-1">ÁO THUN OVERSIZE</h3>
+                        <p class="text-xs text-gray-400 mb-3">T-Shirts • Washed Tee • 150k - 190k</p>
+                        <span class="inline-block px-5 py-2 text-[11px] font-bold tracking-widest uppercase bg-white text-black group-hover:bg-gray-200 transition-colors">
+                            XEM DANH MỤC
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Category 2: Hoodie -->
+                <div onclick="filterCategory('hoodie')" class="group relative h-96 overflow-hidden bg-card border border-bordercol cursor-pointer transition-all duration-300 hover:border-gray-400">
+                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" 
+                         alt="Hoodie Kh_DTS" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale contrast-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6 text-center">
+                        <h3 class="font-display text-2xl font-bold uppercase tracking-wider mb-1">HOODIE & NỈ BÔNG</h3>
+                        <p class="text-xs text-gray-400 mb-3">Zip Hoodie • Pullover • 210k - 250k</p>
+                        <span class="inline-block px-5 py-2 text-[11px] font-bold tracking-widest uppercase bg-white text-black group-hover:bg-gray-200 transition-colors">
+                            XEM DANH MỤC
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Category 3: Phụ Kiện -->
+                <div onclick="filterCategory('accessory')" class="group relative h-96 overflow-hidden bg-card border border-bordercol cursor-pointer transition-all duration-300 hover:border-gray-400">
+                    <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80" 
+                         alt="Phụ Kiện Kh_DTS" 
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale contrast-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    <div class="absolute bottom-6 left-6 right-6 text-center">
+                        <h3 class="font-display text-2xl font-bold uppercase tracking-wider mb-1">PHỤ KIỆN STREET</h3>
+                        <p class="text-xs text-gray-400 mb-3">Mũ lưỡi trai • Túi chéo • 150k - 190k</p>
+                        <span class="inline-block px-5 py-2 text-[11px] font-bold tracking-widest uppercase bg-white text-black group-hover:bg-gray-200 transition-colors">
+                            XEM DANH MỤC
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Now / Product Showcase Section -->
+    <section id="products" class="py-16 lg:py-24 border-b border-bordercol">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-subtext uppercase">BEST SELLERS & NEW DROPS</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight mt-1">TRENDING NOW</h2>
+                    <p class="text-xs text-gray-400 mt-1">Các mẫu hot trend học sinh - sinh viên Nam Định săn đón nhiều nhất</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider">
+                    <button onclick="filterCategory('all')" class="cat-btn active px-4 py-2 border border-white bg-white text-black transition-all" data-category="all">Tất cả</button>
+                    <button onclick="filterCategory('tshirt')" class="cat-btn px-4 py-2 border border-bordercol bg-card text-gray-300 hover:border-gray-500 transition-all" data-category="tshirt">Áo thun</button>
+                    <button onclick="filterCategory('hoodie')" class="cat-btn px-4 py-2 border border-bordercol bg-card text-gray-300 hover:border-gray-500 transition-all" data-category="hoodie">Hoodie</button>
+                    <button onclick="filterCategory('accessory')" class="cat-btn px-4 py-2 border border-bordercol bg-card text-gray-300 hover:border-gray-500 transition-all" data-category="accessory">Phụ kiện</button>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Rendered dynamically by app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner Drop (Like NEON reference) -->
+    <section class="py-12 border-b border-bordercol bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-card border border-bordercol p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest text-subtext uppercase">SPECIAL PROMO</span>
+                        <h3 class="font-display text-2xl font-bold uppercase tracking-tight mt-2 mb-3">MUA COMBO TIẾT KIỆM</h3>
+                        <p class="text-xs text-gray-400">Giảm thêm 30k khi mua combo Áo Thun + Nón hoặc Hoodie + Áo Thun.</p>
+                    </div>
+                    <button onclick="filterCategory('all')" class="mt-6 text-xs font-bold uppercase tracking-widest text-white underline hover:text-gray-300 text-left">
+                        KHÁM PHÁ NGAY →
+                    </button>
+                </div>
+
+                <div class="bg-card border border-bordercol p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest text-subtext uppercase">FAST DELIVERY</span>
+                        <h3 class="font-display text-2xl font-bold uppercase tracking-tight mt-2 mb-3">SHIP HẢI HẬU 2H</h3>
+                        <p class="text-xs text-gray-400">Giao hàng hỏa tốc trong ngày các xã quanh TT. Yên Định, Hải Hậu.</p>
+                    </div>
+                    <a href="tel:545654254245" class="mt-6 text-xs font-bold uppercase tracking-widest text-white underline hover:text-gray-300">
+                        GỌI SHIP NGAY: 545654254245 →
+                    </a>
+                </div>
+
+                <div class="bg-card border border-bordercol p-8 flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs font-bold tracking-widest text-subtext uppercase">TIKTOK & SHOPEE</span>
+                        <h3 class="font-display text-2xl font-bold uppercase tracking-tight mt-2 mb-3">SĂN VOUCHER LIVE</h3>
+                        <p class="text-xs text-gray-400">Follow kênh TikTok của Kh_DTS để săn mã freeship và deal 1k mỗi tuần.</p>
+                    </div>
+                    <button onclick="openPlatformModal()" class="mt-6 text-xs font-bold uppercase tracking-widest text-white underline hover:text-gray-300 text-left">
+                        CHỌN KÊNH SĂN SALE →
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Size Guide Section (Đặc biệt cho khách mua online) -->
+    <section id="size-guide" class="py-16 lg:py-24 border-b border-bordercol bg-dark">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-card border border-bordercol p-6 sm:p-10 rounded-none">
+                <div class="text-center max-w-lg mx-auto mb-8">
+                    <span class="text-xs font-bold tracking-widest text-subtext uppercase">TOOL TỰ ĐỘNG</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight mt-1">CHECK SIZE FORM STREETWEAR</h2>
+                    <p class="text-xs text-gray-400 mt-2">Nhập chiều cao và cân nặng để Kh_DTS gợi ý size mặc chuẩn form (Oversize / Vừa vặn) cho bạn.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-300 mb-2">Chiều cao của bạn (cm):</label>
+                        <input type="number" id="userHeight" placeholder="Ví dụ: 170" class="w-full bg-darker border border-bordercol px-4 py-3 text-sm focus:border-white focus:outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase font-bold text-gray-300 mb-2">Cân nặng của bạn (kg):</label>
+                        <input type="number" id="userWeight" placeholder="Ví dụ: 62" class="w-full bg-darker border border-bordercol px-4 py-3 text-sm focus:border-white focus:outline-none transition-colors">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="calculateSize()" class="w-full sm:w-auto px-8 py-3.5 bg-white text-black font-extrabold text-xs uppercase tracking-widest hover:bg-gray-200 transition-colors">
+                        XEM GỢI Ý SIZE CỦA BẠN
+                    </button>
+                </div>
+
+                <div id="sizeResult" class="hidden mt-6 p-4 bg-darker border border-gray-700 text-center animate-fade-in">
+                    <p class="text-xs text-subtext uppercase tracking-wider mb-1">Size đề xuất cho form áo Kh_DTS:</p>
+                    <div id="recommendedSizeText" class="text-2xl font-black text-white font-display">SIZE L</div>
+                    <p id="sizeAdviceText" class="text-xs text-gray-300 mt-1">Form mặc rộng rãi chuẩn Streetwear. Nếu thích mặc vừa người hãy chọn Size M.</p>
+                </div>
+
+                <!-- Bảng thông số chuẩn -->
+                <div class="mt-8 pt-6 border-t border-bordercol">
+                    <div class="text-xs font-bold uppercase text-gray-400 mb-3 text-center">Bảng thông số tham khảo</div>
+                    <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                        <div class="p-3 bg-darker border border-bordercol">
+                            <span class="font-extrabold block text-sm">SIZE M</span>
+                            <span class="text-subtext text-[11px]">1m55 - 1m68<br>45kg - 58kg</span>
+                        </div>
+                        <div class="p-3 bg-darker border border-bordercol">
+                            <span class="font-extrabold block text-sm">SIZE L</span>
+                            <span class="text-subtext text-[11px]">1m69 - 1m77<br>59kg - 72kg</span>
+                        </div>
+                        <div class="p-3 bg-darker border border-bordercol">
+                            <span class="font-extrabold block text-sm">SIZE XL</span>
+                            <span class="text-subtext text-[11px]">1m78 - 1m85<br>73kg - 85kg</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Physical Store / Showroom Hải Hậu Section -->
+    <section id="store" class="py-16 lg:py-24 border-b border-bordercol bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-subtext uppercase">OFFLINE EXPERIENCE</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight mt-1 mb-6">
+                        GHÉ STORE KH_DTS TẠI YÊN ĐỊNH, HẢI HẬU
+                    </h2>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                        Mời bạn ghé trực tiếp cửa hàng để trải nghiệm tận tay chất vải Cotton 100% 2 chiều, thử chuẩn từng form áo trên người và nhận tư vấn mix & match outfit cực chất từ đội ngũ Kh_DTS.
+                    </p>
+
+                    <div class="space-y-4 text-sm text-gray-300 mb-8">
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-white text-base"></i>
+                            <div>
+                                <strong class="text-white block">Địa chỉ Showroom:</strong>
+                                <span>Thị trấn Yên Định, huyện Hải Hậu, tỉnh Nam Định</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-clock mt-1 text-white text-base"></i>
+                            <div>
+                                <strong class="text-white block">Giờ mở cửa:</strong>
+                                <span>08:30 – 22:00 (Mở cửa tất cả các ngày trong tuần)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone mt-1 text-white text-base"></i>
+                            <div>
+                                <strong class="text-white block">Hotline đặt hàng & giữ đồ:</strong>
+                                <a href="tel:545654254245" class="text-white font-bold hover:underline">545654254245</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <a href="tel:545654254245" class="px-6 py-3 bg-white text-black font-extrabold text-xs uppercase tracking-widest hover:bg-gray-200 transition-colors">
+                            <i class="fa-solid fa-phone mr-2"></i> GỌI HOTLINE
+                        </a>
+                        <button onclick="openZaloModal()" class="px-6 py-3 border border-bordercol bg-card hover:border-gray-400 text-white font-bold text-xs uppercase tracking-widest transition-colors">
+                            <i class="fa-solid fa-comments mr-2"></i> CHAT ZALO NGAY
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Store Image / Visual -->
+                <div class="relative overflow-hidden border border-bordercol bg-card aspect-video lg:aspect-square">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80" 
+                         alt="Store Kh_DTS Yen Dinh Hai Hau" 
+                         class="w-full h-full object-cover filter grayscale contrast-125">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                        <div>
+                            <span class="text-[10px] font-bold tracking-widest bg-white text-black px-2 py-0.5 uppercase">FLAGSHIP STORE</span>
+                            <h4 class="font-display text-xl font-bold uppercase tracking-wide mt-1">KH_DTS YÊN ĐỊNH</h4>
+                            <p class="text-xs text-gray-300">Không gian mua sắm streetwear dành riêng cho giới trẻ Nam Định</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lookbook / Instagram Community Vibe (Layout tương tự mẫu tham khảo) -->
+    <section class="py-16 border-b border-bordercol">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold tracking-widest text-subtext uppercase">OUTFIT OF THE WEEK</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight mt-1">TAG @KH_DTS TO GET FEATURED</h2>
+                <p class="text-xs text-gray-400 mt-1">Check-in cùng outfit của shop trên TikTok / Facebook để nhận voucher 20k</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
+                </div>
+                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-darker text-gray-400 text-xs py-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Col 1: About & Logo -->
+                <div class="space-y-4">
+                    <img src="assets/logo.png" alt="Kh_DTS Logo" class="h-10 w-auto object-contain">
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Thương hiệu thời trang nam Streetwear hàng đầu cho giới trẻ tại Hải Hậu - Nam Định. Tự tin thể hiện cá tính riêng với các thiết kế độc bản, chất lượng cao và mức giá hợp lý nhất.
+                    </p>
+                    <div class="flex items-center space-x-3 text-white text-base">
+                        <a href="https://tiktok.com" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://shopee.vn" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Shopee">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://zalo.me/545654254245" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Zalo">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Danh Mục Nhanh -->
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-4">DANH MỤC</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#products" onclick="filterCategory('tshirt')" class="hover:text-white transition-colors">Áo thun Oversize</a></li>
+                        <li><a href="#products" onclick="filterCategory('hoodie')" class="hover:text-white transition-colors">Hoodie & Áo Nỉ</a></li>
+                        <li><a href="#products" onclick="filterCategory('accessory')" class="hover:text-white transition-colors">Mũ & Phụ Kiện Street</a></li>
+                        <li><a href="#products" onclick="filterCategory('all')" class="hover:text-white transition-colors">Tất cả sản phẩm</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Hỗ Trợ Khách Hàng -->
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-4">CHÍNH SÁCH</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#size-guide" class="hover:text-white transition-colors">Hướng dẫn chọn size</a></li>
+                        <li><a href="#store" class="hover:text-white transition-colors">Chính sách đổi trả 7 ngày</a></li>
+                        <li><a href="#store" class="hover:text-white transition-colors">Kiểm tra hàng trước khi thanh toán</a></li>
+                        <li><a href="#store" class="hover:text-white transition-colors">Chỉ đường tới showroom</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Thông Tin Liên Hệ -->
+                <div>
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-4">LIÊN HỆ TRỰC TIẾP</h4>
+                    <div class="space-y-3">
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-white"></i>
+                            <span>Hotline: <strong class="text-white">545654254245</strong></span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <i class="fa-solid fa-map-pin text-white mt-0.5"></i>
+                            <span>TT. Yên Định, Hải Hậu, Nam Định</span>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                            <span>Cam kết chất lượng 100% Cotton</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-bordercol flex flex-col sm:flex-row items-center justify-between text-[11px] text-subtext gap-4">
+                <p>© 2026 Kh_DTS Fashion Store. All rights reserved. Designed for Youth in Hai Hau, Nam Dinh.</p>
+                <div class="flex space-x-6">
+                    <span>BE YOURSELF</span>
+                    <span>•</span>
+                    <span>STREET CULTURE</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: Điều Hướng Chốt Đơn Đa Kênh (TikTok Shop, Shopee, Zalo) -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-card border border-bordercol max-w-md w-full p-6 relative transform transition-all">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <span class="text-[10px] font-bold tracking-widest uppercase bg-white/10 px-2.5 py-1 text-gray-300">ĐIỀU HƯỚNG MUA HÀNG NHANH</span>
+                <h3 class="font-display text-xl font-bold uppercase tracking-tight mt-2 text-white">CHỌN NỀN TẢNG ĐẶT HÀNG</h3>
+                <p class="text-xs text-gray-400 mt-1">Chọn kênh mua hàng quen thuộc của bạn để hưởng freeship & voucher</p>
+            </div>
+
+            <!-- Product Summary inside modal -->
+            <div id="modalProductSummary" class="flex items-center gap-4 p-3 bg-darker border border-bordercol mb-6">
+                <img id="modalProductImg" src="" alt="Sản phẩm" class="w-16 h-16 object-cover">
+                <div class="flex-1 text-left">
+                    <h4 id="modalProductName" class="text-xs font-bold text-white line-clamp-1">Tên sản phẩm</h4>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span id="modalProductPrice" class="text-sm font-extrabold text-white">180.000đ</span>
+                        <span id="modalProductSize" class="text-[10px] px-2 py-0.5 bg-white/10 text-gray-300 font-semibold">Size L</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Kênh Chốt Đơn -->
+            <div class="space-y-3">
+                <!-- Shopee Button -->
+                <button onclick="redirectToPlatform('shopee')" class="w-full flex items-center justify-between p-3.5 bg-[#EE4D2D] hover:bg-[#d63f20] text-white font-bold text-xs uppercase tracking-wider transition-colors shadow">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-bag-shopping text-base"></i>
+                        <span>Đặt qua Shopee (Voucher & Freeship Xtra)</span>
+                    </span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <!-- TikTok Shop Button -->
+                <button onclick="redirectToPlatform('tiktok')" class="w-full flex items-center justify-between p-3.5 bg-black hover:bg-neutral-900 border border-bordercol text-white font-bold text-xs uppercase tracking-wider transition-colors">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-brands fa-tiktok text-base"></i>
+                        <span>Đặt qua TikTok Shop (Freeship Đơn Đầu)</span>
+                    </span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+                <!-- Zalo Direct Chat Button -->
+                <button onclick="redirectToPlatform('zalo')" class="w-full flex items-center justify-between p-3.5 bg-[#0068FF] hover:bg-[#0052cc] text-white font-bold text-xs uppercase tracking-wider transition-colors">
+                    <span class="flex items-center gap-3">
+                        <i class="fa-solid fa-comment-dots text-base"></i>
+                        <span>Nhắn Zalo tư vấn & Chốt đơn trực tiếp</span>
+                    </span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-bordercol text-center">
+                <p class="text-[11px] text-gray-400">
+                    Khách tại Nam Định muốn thử đồ: Gọi ngay <a href="tel:545654254245" class="text-white font-bold">545654254245</a> (TT. Yên Định)
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART DRAWER (Bảng giỏ đồ nhanh) -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm">
+        <div class="absolute right-0 top-0 bottom-0 max-w-md w-full bg-darker border-l border-bordercol p-6 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-bordercol">
+                    <h3 class="font-display text-lg font-bold uppercase tracking-wider text-white">GIỎ HÀNG CỦA BẠN</h3>
+                    <button onclick="closeCartDrawer()" class="text-gray-400 hover:text-white text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div id="cartItemsList" class="py-4 space-y-3 overflow-y-auto max-h-[60vh]">
+                    <!-- Rendered by app.js -->
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-bordercol">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs uppercase text-subtext font-bold">Tổng tiền tạm tính:</span>
+                    <span id="cartTotalPrice" class="font-display text-xl font-bold text-white">0đ</span>
+                </div>
+                <div class="space-y-2">
+                    <button onclick="checkoutCart('zalo')" class="w-full py-3 bg-[#0068FF] hover:bg-[#0056d6] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-comment-dots"></i> GỬI DANH SÁCH QUA ZALO CHỐT ĐƠN
+                    </button>
+                    <button onclick="checkoutCart('shopee')" class="w-full py-3 bg-[#EE4D2D] hover:bg-[#d63f20] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> MUA TẤT CẢ QUA SHOPEE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Quick Contact Buttons for Mobile -->
+    <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-3">
+        <a href="tel:545654254245" class="w-12 h-12 rounded-full bg-white text-black shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200" title="Gọi Hotline">
+            <i class="fa-solid fa-phone text-lg"></i>
+        </a>
+        <button onclick="openZaloModal()" class="w-12 h-12 rounded-full bg-[#0068FF] text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200" title="Chat Zalo">
+            <i class="fa-solid fa-comment-dots text-lg"></i>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

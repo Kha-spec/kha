@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kh_DTS CMS | Quản Trị Đơn Hàng, Kho & Nội Dung</title>
+    <!-- Google Fonts: Chuẩn hỗ trợ Tiếng Việt 100% -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap&subset=vietnamese" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0B0B0B',
+                        darker: '#050505',
+                        card: '#141414',
+                        cardhover: '#1B1B1B',
+                        accent: '#E6E6E6',
+                        bordercol: '#242424',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #2A2A2A;
+            transition: .3s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #10B981;
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="bg-darker text-white font-sans antialiased selection:bg-white selection:text-black min-h-screen flex flex-col">
+
+    <!-- Top Admin Header -->
+    <header class="sticky top-0 z-40 bg-dark/95 backdrop-blur-md border-b border-bordercol px-4 sm:px-8 py-3.5 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <img src="assets/logo.png" alt="Kh_DTS Logo" class="h-8 sm:h-9 w-auto object-contain">
+                <div>
+                    <span class="font-display font-black text-sm uppercase tracking-wider text-white">Kh_DTS OMS & CMS</span>
+                    <span class="block text-[10px] text-emerald-400 font-semibold tracking-wide">● Quản Trị Bán Hàng & Tồn Kho</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Action Tools -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+            <a href="index.html" target="_blank" class="px-3.5 py-2 text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white hover:text-black rounded-lg transition-colors flex items-center gap-1.5" title="Xem trang chủ bán hàng">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span class="hidden sm:inline">Xem Web Khách</span>
+            </a>
+            <button onclick="exportBackupData()" class="px-3 py-2 text-xs font-semibold bg-card border border-bordercol hover:border-gray-500 rounded-lg transition-colors flex items-center gap-1.5" title="Tải về file sao lưu dữ liệu toàn bộ website">
+                <i class="fa-solid fa-cloud-arrow-down text-emerald-400"></i>
+                <span class="hidden md:inline">Sao Lưu (.json)</span>
+            </button>
+            <label class="px-3 py-2 text-xs font-semibold bg-card border border-bordercol hover:border-gray-500 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5" title="Nhập dữ liệu từ file sao lưu">
+                <i class="fa-solid fa-cloud-arrow-up text-amber-400"></i>
+                <span class="hidden md:inline">Nhập Sao Lưu</span>
+                <input type="file" id="importBackupInput" accept=".json" class="hidden" onchange="importBackupData(event)">
+            </label>
+            <button onclick="resetDefaultData()" class="p-2 text-xs text-gray-400 hover:text-rose-400 bg-card border border-bordercol rounded-lg" title="Khôi phục dữ liệu gốc ban đầu">
+                <i class="fa-solid fa-rotate-left"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Admin Container -->
+    <div class="flex-1 flex flex-col md:flex-row max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 gap-6">
+
+        <!-- Sidebar Navigation Tabs -->
+        <aside class="w-full md:w-64 flex-shrink-0">
+            <div class="bg-card border border-bordercol p-3 rounded-xl sticky top-24 space-y-1">
+                <div class="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-gray-400">TRUNG TÂM QUẢN TRỊ</div>
+                
+                <!-- Tab Đơn Hàng OMS -->
+                <button onclick="switchTab('orders')" id="tabBtn-orders" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors bg-white text-black">
+                    <span class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-clipboard-list text-sm text-amber-500"></i>
+                        <span>Quản Lý Đơn Hàng</span>
+                    </span>
+                    <span id="ordersBadgeCount" class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500 text-black font-black">0</span>
+                </button>
+
+                <!-- Tab Sản Phẩm & Tồn Kho -->
+                <button onclick="switchTab('products')" id="tabBtn-products" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 hover:bg-white/5 hover:text-white">
+                    <span class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-shirt text-sm"></i>
+                        <span>Kho & Sản Phẩm</span>
+                    </span>
+                    <span id="productBadgeCount" class="text-[10px] px-2 py-0.5 rounded-full bg-black border border-bordercol text-white font-extrabold">8</span>
+                </button>
+
+                <!-- Tab Mã Giảm Giá Voucher -->
+                <button onclick="switchTab('vouchers')" id="tabBtn-vouchers" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 hover:bg-white/5 hover:text-white">
+                    <span class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-ticket text-sm text-rose-400"></i>
+                        <span>Mã Khuyến Mãi</span>
+                    </span>
+                    <span id="voucherBadgeCount" class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-bold">3</span>
+                </button>
+
+                <!-- Tab Cài Đặt Shop & VietQR -->
+                <button onclick="switchTab('store')" id="tabBtn-store" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 hover:bg-white/5 hover:text-white">
+                    <span class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-qrcode text-sm text-emerald-400"></i>
+                        <span>Shop & VietQR</span>
+                    </span>
+                </button>
+
+                <!-- Tab Banner & Lookbook -->
+                <button onclick="switchTab('banner')" id="tabBtn-banner" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 hover:bg-white/5 hover:text-white">
+                    <span class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-image text-sm"></i>
+                        <span>Banner & Lookbook</span>
+                    </span>
+                </button>
+
+                <!-- Tab Showroom Hải Hậu & Size -->
+                <button onclick="switchTab('size-store')" id="tabBtn-size-store" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 hover:bg-white/5 hover:text-white">
+                    <span class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-ruler-combined text-sm"></i>
+                        <span>Showroom & Size</span>
+                    </span>
+                </button>
+
+                <!-- Tab Sổ Log Khách Bấm -->
+                <button onclick="switchTab('leads')" id="tabBtn-leads" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 hover:bg-white/5 hover:text-white">
+                    <span class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-chart-line text-sm text-emerald-400"></i>
+                        <span>Lịch Sử Chốt Đơn</span>
+                    </span>
+                    <span id="leadsBadgeCount" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">0</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Tab Content Area -->
+        <main class="flex-1 min-w-0">
+
+            <!-- TAB 1: QUẢN LÝ ĐƠN HÀNG (OMS) -->
+            <section id="tab-orders" class="tab-content space-y-6">
+                <!-- 4 Thẻ chỉ số tổng quan -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-card border border-bordercol p-4 rounded-xl">
+                        <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Tổng Đơn Hàng</span>
+                        <div id="statTotalOrders" class="text-2xl font-black text-white font-display mt-1">0</div>
+                    </div>
+                    <div class="bg-card border border-bordercol p-4 rounded-xl">
+                        <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider">Đơn Chờ Xử Lý</span>
+                        <div id="statPendingOrders" class="text-2xl font-black text-amber-400 font-display mt-1">0</div>
+                    </div>
+                    <div class="bg-card border border-bordercol p-4 rounded-xl">
+                        <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Doanh Thu Tạm Tính</span>
+                        <div id="statRevenue" class="text-xl sm:text-2xl font-black text-emerald-400 font-display mt-1">0đ</div>
+                    </div>
+                    <div class="bg-card border border-bordercol p-4 rounded-xl">
+                        <span class="text-[11px] font-bold text-purple-400 uppercase tracking-wider">Đã Hoàn Tất</span>
+                        <div id="statCompletedOrders" class="text-2xl font-black text-purple-400 font-display mt-1">0</div>
+                    </div>
+                </div>
+
+                <!-- Bảng danh sách đơn hàng -->
+                <div class="bg-card border border-bordercol rounded-xl overflow-hidden">
+                    <div class="p-4 sm:p-5 border-b border-bordercol flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                        <div>
+                            <h2 class="font-display text-lg font-bold uppercase tracking-tight text-white">DANH SÁCH ĐƠN HÀNG TRỰC TIẾP</h2>
+                            <p class="text-xs text-gray-400">Khách đặt giao hỏa tốc Hải Hậu hoặc chuyển phát toàn quốc</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <select id="filterOrderStatus" onchange="renderAdminOrders()" class="bg-darker border border-bordercol px-3 py-1.5 rounded-lg text-xs text-white focus:outline-none">
+                                <option value="all">Tất cả trạng thái</option>
+                                <option value="pending">Chờ xác nhận</option>
+                                <option value="confirmed">Đã xác nhận</option>
+                                <option value="shipping">Đang giao hàng</option>
+                                <option value="completed">Đã hoàn tất</option>
+                                <option value="cancelled">Đã hủy</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-darker text-gray-400 font-bold uppercase tracking-wider border-b border-bordercol">
+                                <tr>
+                                    <th class="py-3 px-4">Mã Đơn</th>
+                                    <th class="py-3 px-4">Khách Hàng / SĐT</th>
+                                    <th class="py-3 px-4">Địa Chỉ Giao</th>
+                                    <th class="py-3 px-4">Sản Phẩm (Size x SL)</th>
+                                    <th class="py-3 px-4">Tổng Tiền</th>
+                                    <th class="py-3 px-4">Thanh Toán</th>
+                                    <th class="py-3 px-4">Trạng Thái</th>
+                                    <th class="py-3 px-4 text-right">Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminOrdersTableBody" class="divide-y divide-bordercol">
+                                <!-- Rendered dynamically by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: QUẢN LÝ SẢN PHẨM & TỒN KHO SKU -->
+            <section id="tab-products" class="tab-content hidden space-y-6">
+                <!-- Action bar & Filter -->
+                <div class="bg-card border border-bordercol p-4 sm:p-5 rounded-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-display text-xl font-bold uppercase tracking-tight text-white">KHO SẢN PHẨM & TỒN KHO THEO SIZE</h2>
+                        <p class="text-xs text-gray-400 mt-0.5">Quản lý số lượng tồn theo từng size (M, L, XL, Freesize) và giá bán</p>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <div class="relative flex-1 sm:w-48">
+                            <input type="text" id="productSearchInput" oninput="filterAdminProducts()" placeholder="Tìm tên áo..." class="w-full bg-darker border border-bordercol px-3 py-2 pl-8 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                            <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-gray-500 text-xs"></i>
+                        </div>
+                        <button onclick="openProductModal()" class="px-4 py-2 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2 shadow">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Thêm Mẫu Mới</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bộ lọc danh mục nhanh -->
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <button onclick="filterAdminCategory('all')" class="admin-cat-pill px-3 py-1.5 rounded-lg border border-white bg-white text-black font-bold" data-cat="all">Tất cả (<span id="countAll">0</span>)</button>
+                    <button onclick="filterAdminCategory('tshirt')" class="admin-cat-pill px-3 py-1.5 rounded-lg border border-bordercol bg-card text-gray-300 hover:border-gray-500 font-semibold" data-cat="tshirt">Áo thun (<span id="countTshirt">0</span>)</button>
+                    <button onclick="filterAdminCategory('hoodie')" class="admin-cat-pill px-3 py-1.5 rounded-lg border border-bordercol bg-card text-gray-300 hover:border-gray-500 font-semibold" data-cat="hoodie">Hoodie (<span id="countHoodie">0</span>)</button>
+                    <button onclick="filterAdminCategory('accessory')" class="admin-cat-pill px-3 py-1.5 rounded-lg border border-bordercol bg-card text-gray-300 hover:border-gray-500 font-semibold" data-cat="accessory">Phụ kiện (<span id="countAccessory">0</span>)</button>
+                </div>
+
+                <!-- Danh sách sản phẩm -->
+                <div class="bg-card border border-bordercol rounded-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-darker text-gray-400 font-bold uppercase tracking-wider border-b border-bordercol">
+                                <tr>
+                                    <th class="py-3.5 px-4 w-16 text-center">Ảnh</th>
+                                    <th class="py-3.5 px-4">Tên Sản Phẩm</th>
+                                    <th class="py-3.5 px-4">Danh Mục</th>
+                                    <th class="py-3.5 px-4">Giá Bán</th>
+                                    <th class="py-3.5 px-4">Tồn Kho Từng Size</th>
+                                    <th class="py-3.5 px-4">Nhãn Tag</th>
+                                    <th class="py-3.5 px-4 text-center">Bật Bán</th>
+                                    <th class="py-3.5 px-4 text-right">Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsTableBody" class="divide-y divide-bordercol">
+                                <!-- Rendered dynamically by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: QUẢN LÝ MÃ GIẢM GIÁ (VOUCHERS) -->
+            <section id="tab-vouchers" class="tab-content hidden space-y-6">
+                <div class="bg-card border border-bordercol p-4 sm:p-5 rounded-xl flex items-center justify-between">
+                    <div>
+                        <h2 class="font-display text-xl font-bold uppercase tracking-tight text-white">MÃ KHUYẾN MÃI (VOUCHER)</h2>
+                        <p class="text-xs text-gray-400 mt-0.5">Khách có thể nhập tại giỏ hàng để được trừ tiền hoặc freeship</p>
+                    </div>
+                    <button onclick="openVoucherModal()" class="px-4 py-2 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2 shadow">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Thêm Voucher Mới</span>
+                    </button>
+                </div>
+
+                <div class="bg-card border border-bordercol rounded-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-darker text-gray-400 font-bold uppercase tracking-wider border-b border-bordercol">
+                                <tr>
+                                    <th class="py-3 px-4">Mã Code</th>
+                                    <th class="py-3 px-4">Mức Giảm</th>
+                                    <th class="py-3 px-4">Đơn Tối Thiểu</th>
+                                    <th class="py-3 px-4">Mô Tả Khuyến Mãi</th>
+                                    <th class="py-3 px-4 text-right">Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminVouchersTableBody" class="divide-y divide-bordercol">
+                                <!-- Rendered by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: CÀI ĐẶT SHOP & TÀI KHOẢN NGÂN HÀNG VIETQR -->
+            <section id="tab-store" class="tab-content hidden space-y-6">
+                <div class="bg-card border border-bordercol p-5 rounded-xl">
+                    <h2 class="font-display text-xl font-bold uppercase tracking-tight text-white mb-1">CÀI ĐẶT SHOP & TÀI KHOẢN VIETQR</h2>
+                    <p class="text-xs text-gray-400 mb-6">Mã VietQR tự động sinh trên website sẽ đổ trực tiếp vào số tài khoản này</p>
+
+                    <form id="storeSettingsForm" onsubmit="saveStoreSettings(event)" class="space-y-6">
+                        <!-- Cấu hình Ngân hàng nhận tiền VietQR -->
+                        <div class="p-4 bg-darker border border-emerald-500/30 rounded-lg space-y-4">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-qrcode text-emerald-400 text-base"></i>
+                                <h4 class="text-xs font-bold uppercase text-white">Tài khoản ngân hàng nhận tiền VietQR:</h4>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 mb-1">Ngân hàng:</label>
+                                    <select id="settingBankId" class="w-full bg-card border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                                        <option value="MB">MBBank (Quân Đội)</option>
+                                        <option value="VCB">Vietcombank</option>
+                                        <option value="TCB">Techcombank</option>
+                                        <option value="VPB">VPBank</option>
+                                        <option value="ACB">ACB</option>
+                                        <option value="BIDV">BIDV</option>
+                                        <option value="ICB">VietinBank</option>
+                                        <option value="TPB">TPBank</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 mb-1">Số tài khoản (*):</label>
+                                    <input type="text" id="settingBankAccNo" required placeholder="0389999999" class="w-full bg-card border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none font-mono">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 mb-1">Tên chủ tài khoản (*):</label>
+                                    <input type="text" id="settingBankAccName" required placeholder="NGUYEN VAN KHA" class="w-full bg-card border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none uppercase">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Announcement Bar -->
+                        <div class="p-4 bg-darker border border-bordercol rounded-lg space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase text-white">Thanh thông báo đầu trang (Top Announcement Bar)</h4>
+                                    <p class="text-[11px] text-gray-400">Dòng chữ màu trắng chạy trên đầu website</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="settingTopBannerEnabled">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <input type="text" id="settingTopBannerText" class="w-full bg-card border border-bordercol px-3.5 py-2.5 rounded-lg text-xs text-white focus:border-white focus:outline-none" placeholder="Nội dung khuyến mãi trên cùng...">
+                        </div>
+
+                        <!-- Hotline & Tên shop -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-300 mb-2">Số Hotline chính (áp dụng toàn bộ nút gọi):</label>
+                                <input type="text" id="settingHotline" required class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded-lg text-xs text-white focus:border-white focus:outline-none" placeholder="Ví dụ: 0912345678">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-gray-300 mb-2">Tên thương hiệu:</label>
+                                <input type="text" id="settingStoreName" required class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded-lg text-xs text-white focus:border-white focus:outline-none" placeholder="Kh_DTS Fashion Store">
+                            </div>
+                        </div>
+
+                        <!-- Kênh bán hàng Đa Kênh -->
+                        <div class="p-4 bg-darker border border-bordercol rounded-lg space-y-4">
+                            <h4 class="text-xs font-bold uppercase text-white">Liên kết Mạng xã hội & Sàn TMĐT</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 mb-1.5"><i class="fa-brands fa-tiktok mr-1 text-white"></i> Kênh TikTok / TikTok Shop URL:</label>
+                                    <input type="url" id="settingLinkTiktok" class="w-full bg-card border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 mb-1.5"><i class="fa-solid fa-bag-shopping mr-1 text-[#EE4D2D]"></i> Gian hàng Shopee URL:</label>
+                                    <input type="url" id="settingLinkShopee" class="w-full bg-card border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 mb-1.5"><i class="fa-brands fa-facebook-f mr-1 text-[#1877F2]"></i> Fanpage Facebook URL:</label>
+                                    <input type="url" id="settingLinkFacebook" class="w-full bg-card border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold text-gray-400 mb-1.5"><i class="fa-solid fa-comment-dots mr-1 text-[#0068FF]"></i> Link chat Zalo nhận đơn:</label>
+                                    <input type="url" id="settingLinkZalo" class="w-full bg-card border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-right pt-2">
+                            <button type="submit" class="px-6 py-2.5 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded-lg hover:bg-gray-200 transition-colors shadow">
+                                <i class="fa-solid fa-floppy-disk mr-1.5"></i> Lưu Cài Đặt Shop
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TAB 5: BANNER HERO, PROMO & LOOKBOOK -->
+            <section id="tab-banner" class="tab-content hidden space-y-6">
+                <!-- Hero Banner -->
+                <div class="bg-card border border-bordercol p-5 rounded-xl space-y-4">
+                    <h2 class="font-display text-xl font-bold uppercase tracking-tight text-white">HERO BANNER (ĐẦU TRANG CHỦ)</h2>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Dòng chữ nhỏ (Badge):</label>
+                            <input type="text" id="settingHeroBadge" class="w-full bg-darker border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Ảnh nền Banner (URL):</label>
+                            <input type="url" id="settingHeroBg" class="w-full bg-darker border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Tiêu đề lớn dòng 1:</label>
+                            <input type="text" id="settingHeroTitle1" class="w-full bg-darker border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Tiêu đề lớn dòng 2:</label>
+                            <input type="text" id="settingHeroTitle2" class="w-full bg-darker border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Đoạn văn giới thiệu:</label>
+                        <textarea id="settingHeroDesc" rows="2" class="w-full bg-darker border border-bordercol p-3 rounded-lg text-xs text-white focus:border-white focus:outline-none"></textarea>
+                    </div>
+
+                    <div class="text-right">
+                        <button onclick="saveHeroBanner()" class="px-5 py-2 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fa-solid fa-floppy-disk mr-1.5"></i> Cập Nhật Banner
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lookbook 6 ảnh cộng đồng -->
+                <div class="bg-card border border-bordercol p-5 rounded-xl space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="font-display text-xl font-bold uppercase tracking-tight text-white">LOOKBOOK CHECK-IN (6 ẢNH OUTFIT)</h2>
+                            <p class="text-xs text-gray-400">Ảnh thực tế khách mặc đồ gắn tag shop trên TikTok / Facebook</p>
+                        </div>
+                    </div>
+
+                    <div id="adminLookbookGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                        <!-- Rendered by admin.js -->
+                    </div>
+
+                    <div class="text-right">
+                        <button onclick="saveLookbookPhotos()" class="px-5 py-2 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fa-solid fa-floppy-disk mr-1.5"></i> Lưu Danh Sách Lookbook
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 6: SHOWROOM HẢI HẬU & BẢNG SIZE -->
+            <section id="tab-size-store" class="tab-content hidden space-y-6">
+                <div class="bg-card border border-bordercol p-5 rounded-xl space-y-4">
+                    <h2 class="font-display text-xl font-bold uppercase tracking-tight text-white">SHOWROOM OFFLINE HẢI HẬU</h2>
+                    <p class="text-xs text-gray-400">Thông tin cửa hàng để khách ghé thử đồ trực tiếp</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Địa chỉ Showroom:</label>
+                            <input type="text" id="settingStoreAddress" class="w-full bg-darker border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Khung giờ mở cửa:</label>
+                            <input type="text" id="settingStoreHours" class="w-full bg-darker border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Tiêu đề Flagship:</label>
+                            <input type="text" id="settingStoreVisualTitle" class="w-full bg-darker border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Ảnh Showroom (URL):</label>
+                            <input type="url" id="settingStoreVisualImg" class="w-full bg-darker border border-bordercol px-3 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <button onclick="saveShowroomSettings()" class="px-5 py-2 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fa-solid fa-floppy-disk mr-1.5"></i> Cập Nhật Showroom
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 7: SỔ LOG KHÁCH BẤM -->
+            <section id="tab-leads" class="tab-content hidden space-y-6">
+                <div class="bg-card border border-bordercol p-5 rounded-xl flex items-center justify-between">
+                    <div>
+                        <h2 class="font-display text-xl font-bold uppercase tracking-tight text-white">SỔ THEO DÕI KHÁCH BẤM CHỐT ĐƠN</h2>
+                        <p class="text-xs text-gray-400 mt-0.5">Tự động ghi nhận mỗi khi có khách nhấn nút Mua Shopee, TikTok hoặc Chat Zalo</p>
+                    </div>
+                    <button onclick="clearAdminLeads()" class="px-3 py-1.5 text-xs text-red-400 hover:text-red-300 bg-darker border border-bordercol rounded-lg">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Xóa Lịch Sử
+                    </button>
+                </div>
+
+                <div class="bg-card border border-bordercol rounded-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-darker text-gray-400 font-bold uppercase tracking-wider border-b border-bordercol">
+                                <tr>
+                                    <th class="py-3 px-4">Thời Gian</th>
+                                    <th class="py-3 px-4">Hành Động / Kênh</th>
+                                    <th class="py-3 px-4">Sản Phẩm Khách Chọn</th>
+                                    <th class="py-3 px-4">Size</th>
+                                    <th class="py-3 px-4">Giá Trị</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminLeadsTableBody" class="divide-y divide-bordercol">
+                                <!-- Rendered dynamically by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL: THÊM / SỬA SẢN PHẨM & TỒN KHO SKU -->
+    <div id="productModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-card border border-bordercol max-w-2xl w-full p-6 relative max-h-[90vh] overflow-y-auto rounded-xl">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 id="productModalTitle" class="font-display text-lg font-bold uppercase tracking-tight text-white mb-4">THÊM MẪU SẢN PHẨM MỚI</h3>
+
+            <form id="productForm" onsubmit="saveProductForm(event)" class="space-y-4">
+                <input type="hidden" id="formProductId">
+
+                <!-- Tên & Danh mục -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Tên sản phẩm (*):</label>
+                        <input type="text" id="formProductName" required placeholder="Ví dụ: Áo Thun Kh_DTS Oversize Cyber Vibe..." class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Danh mục:</label>
+                        <select id="formProductCategory" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                            <option value="tshirt">Áo Thun</option>
+                            <option value="hoodie">Hoodie / Nỉ Bông</option>
+                            <option value="accessory">Phụ Kiện Street</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Giá bán & Giá gốc -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Giá bán thực tế (VND) (*):</label>
+                        <input type="number" id="formProductPrice" required min="1000" step="1000" placeholder="189000" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded-lg text-xs text-white focus:border-white focus:outline-none font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Giá gốc gạch ngang (VND):</label>
+                        <input type="number" id="formProductOriginalPrice" min="0" step="1000" placeholder="240000" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Số lượng tồn kho theo từng Size (SKU Inventory) -->
+                <div class="p-3 bg-darker border border-bordercol rounded-lg space-y-2">
+                    <label class="block text-xs font-bold uppercase text-white">Quản lý tồn kho từng Size (Số lượng còn):</label>
+                    <div class="grid grid-cols-4 gap-3 text-xs">
+                        <div>
+                            <span class="block text-gray-400 font-bold mb-1">Size M:</span>
+                            <input type="number" id="stockM" min="0" value="10" class="w-full bg-card border border-bordercol px-2.5 py-1.5 rounded text-white text-center font-bold">
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 font-bold mb-1">Size L:</span>
+                            <input type="number" id="stockL" min="0" value="15" class="w-full bg-card border border-bordercol px-2.5 py-1.5 rounded text-white text-center font-bold">
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 font-bold mb-1">Size XL:</span>
+                            <input type="number" id="stockXL" min="0" value="8" class="w-full bg-card border border-bordercol px-2.5 py-1.5 rounded text-white text-center font-bold">
+                        </div>
+                        <div>
+                            <span class="block text-gray-400 font-bold mb-1">Freesize:</span>
+                            <input type="number" id="stockFreesize" min="0" value="0" class="w-full bg-card border border-bordercol px-2.5 py-1.5 rounded text-white text-center font-bold">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nhãn Tag nổi bật -->
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Nhãn Tag Nổi Bật (Click chọn nhanh):</label>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <button type="button" onclick="selectQuickTag('BEST SELLER')" class="px-2.5 py-1 text-[11px] font-bold bg-darker border border-bordercol hover:border-white text-gray-300 rounded">BEST SELLER</button>
+                        <button type="button" onclick="selectQuickTag('HOT DROP')" class="px-2.5 py-1 text-[11px] font-bold bg-darker border border-bordercol hover:border-white text-gray-300 rounded">HOT DROP</button>
+                        <button type="button" onclick="selectQuickTag('NEW')" class="px-2.5 py-1 text-[11px] font-bold bg-darker border border-bordercol hover:border-white text-gray-300 rounded">NEW</button>
+                        <button type="button" onclick="selectQuickTag('TRENDING')" class="px-2.5 py-1 text-[11px] font-bold bg-darker border border-bordercol hover:border-white text-gray-300 rounded">TRENDING</button>
+                        <button type="button" onclick="selectQuickTag('LIMITED')" class="px-2.5 py-1 text-[11px] font-bold bg-darker border border-bordercol hover:border-white text-gray-300 rounded">LIMITED</button>
+                        <button type="button" onclick="selectQuickTag('')" class="px-2.5 py-1 text-[11px] font-bold bg-darker border border-bordercol hover:text-rose-400 text-gray-500 rounded">Không gắn tag</button>
+                    </div>
+                    <input type="text" id="formProductTag" placeholder="Hoặc tự gõ nhãn riêng..." class="w-full bg-darker border border-bordercol px-3.5 py-2 rounded-lg text-xs text-white focus:border-white focus:outline-none uppercase font-bold">
+                </div>
+
+                <!-- Ảnh đại diện chính -->
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Đường Dẫn Hình Ảnh Đại Diện (URL) (*):</label>
+                    <div class="flex gap-3">
+                        <input type="url" id="formProductImage" required oninput="previewModalImage(this.value)" placeholder="https://images.unsplash.com/..." class="flex-1 bg-darker border border-bordercol px-3.5 py-2.5 rounded-lg text-xs text-white focus:border-white focus:outline-none">
+                        <img id="formProductImgPreview" src="" alt="Preview" class="w-12 h-12 object-cover rounded-lg border border-bordercol bg-darker hidden">
+                    </div>
+                </div>
+
+                <!-- Thông tin người mẫu mặc -->
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Gợi ý dáng người mẫu mặc:</label>
+                    <input type="text" id="formProductModelInfo" placeholder="Ví dụ: Mẫu nam 1m73 - 62kg mặc Size L chuẩn form Oversize..." class="w-full bg-darker border border-bordercol px-3.5 py-2 text-xs text-white focus:border-white focus:outline-none">
+                </div>
+
+                <!-- Mô tả chất liệu & form dáng -->
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-300 mb-1.5">Mô Tả Chi Tiết (Chất vải, Form dáng):</label>
+                    <textarea id="formProductDesc" rows="2" placeholder="Cotton 100% 2 chiều định lượng 250gsm, hiệu ứng wash acid cá tính..." class="w-full bg-darker border border-bordercol p-3 rounded-lg text-xs text-white focus:border-white focus:outline-none"></textarea>
+                </div>
+
+                <div class="pt-4 border-t border-bordercol flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeProductModal()" class="px-5 py-2.5 bg-darker hover:bg-white/5 border border-bordercol text-xs font-bold uppercase tracking-wider rounded-lg transition-colors">
+                        Hủy Bỏ
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded-lg hover:bg-gray-200 transition-colors shadow">
+                        <i class="fa-solid fa-check mr-1.5"></i> Lưu Sản Phẩm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: THÊM MÃ GIẢM GIÁ (Voucher Modal) -->
+    <div id="voucherModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-card border border-bordercol max-w-md w-full p-6 relative rounded-xl">
+            <button onclick="closeVoucherModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="font-display text-lg font-bold uppercase tracking-tight text-white mb-4">THÊM MÃ GIẢM GIÁ MỚI</h3>
+
+            <form id="voucherForm" onsubmit="saveVoucherForm(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold uppercase text-gray-300 mb-1">Mã Code (In hoa, viết liền) (*):</label>
+                    <input type="text" id="voucherCode" required placeholder="VOUCHER30K" class="w-full bg-darker border border-bordercol px-3 py-2 rounded text-white font-mono font-bold uppercase focus:border-white focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold uppercase text-gray-300 mb-1">Loại giảm giá:</label>
+                        <select id="voucherType" class="w-full bg-darker border border-bordercol px-3 py-2 rounded text-white focus:border-white focus:outline-none">
+                            <option value="fixed">Giảm tiền cụ thể (VND)</option>
+                            <option value="shipping">Miễn phí ship</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold uppercase text-gray-300 mb-1">Giá trị giảm (*):</label>
+                        <input type="number" id="voucherValue" required min="1000" step="1000" value="20000" class="w-full bg-darker border border-bordercol px-3 py-2 rounded text-white font-bold focus:border-white focus:outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-bold uppercase text-gray-300 mb-1">Áp dụng cho đơn từ (VND):</label>
+                    <input type="number" id="voucherMinOrder" min="0" step="10000" value="150000" class="w-full bg-darker border border-bordercol px-3 py-2 rounded text-white focus:border-white focus:outline-none">
+                </div>
+                <div>
+                    <label class="block font-bold uppercase text-gray-300 mb-1">Mô tả ngắn gọn:</label>
+                    <input type="text" id="voucherDesc" placeholder="Giảm 20k cho đơn từ 150k" class="w-full bg-darker border border-bordercol px-3 py-2 rounded text-white focus:border-white focus:outline-none">
+                </div>
+                <div class="pt-3 border-t border-bordercol flex justify-end gap-2">
+                    <button type="button" onclick="closeVoucherModal()" class="px-4 py-2 bg-darker border border-bordercol rounded text-gray-300 hover:text-white">Hủy</button>
+                    <button type="submit" class="px-5 py-2 bg-white text-black font-extrabold uppercase rounded hover:bg-gray-200">Tạo Mã Ngay</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

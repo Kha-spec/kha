@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kh_DTS | Fashion Store - Be Yourself | Hải Hậu, Nam Định</title>
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Chuẩn hỗ trợ Tiếng Việt 100% -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;0,800;0,900;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap&subset=vietnamese" rel="stylesheet">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
@@ -28,7 +28,7 @@
                     },
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        display: ['Syne', 'sans-serif'],
+                        display: ['Space Grotesk', 'Montserrat', 'sans-serif'],
                     }
                 }
             }
@@ -38,9 +38,9 @@
 <body class="bg-dark text-white font-sans antialiased selection:bg-white selection:text-black">
 
     <!-- Top Announcement Bar -->
-    <div class="bg-darker border-b border-bordercol py-2 px-4 text-xs tracking-wider text-center flex items-center justify-center gap-2 text-gray-300">
+    <div id="topAnnouncementBar" class="bg-darker border-b border-bordercol py-2 px-4 text-xs tracking-wider text-center flex items-center justify-center gap-2 text-gray-300">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>FREESHIP TOÀN QUỐC TỪ 2 SẢN PHẨM • GHÉ THỬ ĐỒ TRỰC TIẾP TẠI TT. YÊN ĐỊNH, HẢI HẬU</span>
+        <span id="topAnnouncementText">FREESHIP TOÀN QUỐC TỪ 2 SẢN PHẨM • GHÉ THỬ ĐỒ TRỰC TIẾP TẠI TT. YÊN ĐỊNH, HẢI HẬU</span>
     </div>
 
     <!-- Main Navigation Header -->
@@ -53,7 +53,7 @@
 
             <!-- Brand Logo -->
             <a href="#" class="flex items-center space-x-3 group">
-                <img src="assets/logo.png" alt="Kh_DTS Logo" class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+                <img id="headerLogoImg" src="assets/logo.png" alt="Kh_DTS Logo" class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
             </a>
 
             <!-- Desktop Nav Links -->
@@ -66,7 +66,11 @@
             </nav>
 
             <!-- Action Buttons -->
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3 sm:space-x-4">
+                <a href="admin.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold tracking-wider uppercase border border-amber-400/40 bg-amber-400/10 hover:bg-amber-400 hover:text-black rounded-full transition-all text-amber-300 shadow-sm" title="Quản trị nội dung website">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span class="hidden md:inline">Quản Trị CMS</span>
+                </a>
                 <button onclick="scrollToProducts()" class="hidden sm:flex items-center gap-2 text-xs uppercase font-bold tracking-wider px-3 py-2 rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <span>Tìm đồ</span>
@@ -85,8 +89,11 @@
             <a href="#products" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Trending Now</a>
             <a href="#size-guide" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Bảng Chọn Size</a>
             <a href="#store" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Store Hải Hậu</a>
+            <a href="admin.html" class="mobile-link flex items-center gap-2 text-base font-bold uppercase tracking-wider text-amber-400 hover:text-amber-300 pt-2 border-t border-bordercol">
+                <i class="fa-solid fa-sliders"></i> Vào Trang Quản Trị CMS
+            </a>
             <div class="pt-4 border-t border-bordercol flex items-center justify-between text-xs text-subtext">
-                <span>Hotline: <strong class="text-white">545654254245</strong></span>
+                <span>Hotline: <strong class="text-white hotline-text">545654254245</strong></span>
                 <span class="text-emerald-400">Yên Định, Nam Định</span>
             </div>
         </div>
@@ -96,7 +103,7 @@
     <section id="hero" class="relative overflow-hidden min-h-[580px] lg:min-h-[680px] flex items-center border-b border-bordercol">
         <!-- Hero Background Visual -->
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1920&q=80" 
+            <img id="heroBgImg" src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1920&q=80" 
                  alt="Streetwear Look" 
                  class="w-full h-full object-cover object-top opacity-35 filter grayscale contrast-125">
             <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-transparent"></div>
@@ -107,20 +114,20 @@
             <div class="max-w-2xl">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs tracking-widest uppercase mb-6 font-semibold">
                     <span class="text-amber-300"><i class="fa-solid fa-bolt"></i></span>
-                    <span>NEW SEASON COLLECTION 2026</span>
+                    <span id="heroBadgeText">NEW SEASON COLLECTION 2026</span>
                 </div>
                 <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight leading-none mb-6">
-                    STREETWEAR.<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">BE YOURSELF.</span>
+                    <span id="heroTitleLine1">STREETWEAR.</span><br>
+                    <span id="heroTitleLine2" class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500">BE YOURSELF.</span>
                 </h1>
-                <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-8 max-w-xl">
+                <p id="heroDescText" class="text-gray-300 text-sm sm:text-base leading-relaxed mb-8 max-w-xl">
                     Tuyển tập Áo thun Oversize, Hoodie nỉ bông cao cấp & Phụ kiện chuẩn gu Gen Z. Form dáng phóng khoáng, chất vải dày dặn, giá chỉ từ <strong>150k - 250k</strong> cho giới trẻ Nam Định.
                 </p>
                 <div class="flex flex-wrap gap-4 items-center">
-                    <a href="#products" class="px-8 py-3.5 bg-white text-black font-extrabold text-xs uppercase tracking-widest rounded-none hover:bg-gray-200 transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg">
+                    <a id="heroBtnShop" href="#products" class="px-8 py-3.5 bg-white text-black font-extrabold text-xs uppercase tracking-widest rounded-none hover:bg-gray-200 transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg">
                         MUA NGAY (SHOP NOW)
                     </a>
-                    <a href="#store" class="px-7 py-3.5 border border-white/30 text-white font-bold text-xs uppercase tracking-widest rounded-none hover:bg-white/10 transition-all duration-200">
+                    <a id="heroBtnStore" href="#store" class="px-7 py-3.5 border border-white/30 text-white font-bold text-xs uppercase tracking-widest rounded-none hover:bg-white/10 transition-all duration-200">
                         GHÉ STORE HẢI HẬU
                     </a>
                 </div>
@@ -180,52 +187,11 @@
                 <h2 class="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight mt-1">SHOP BY CATEGORY</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Category 1: Áo Thun -->
-                <div onclick="filterCategory('tshirt')" class="group relative h-96 overflow-hidden bg-card border border-bordercol cursor-pointer transition-all duration-300 hover:border-gray-400">
-                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" 
-                         alt="Áo Thun Kh_DTS" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale contrast-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 right-6 text-center">
-                        <h3 class="font-display text-2xl font-bold uppercase tracking-wider mb-1">ÁO THUN OVERSIZE</h3>
-                        <p class="text-xs text-gray-400 mb-3">T-Shirts • Washed Tee • 150k - 190k</p>
-                        <span class="inline-block px-5 py-2 text-[11px] font-bold tracking-widest uppercase bg-white text-black group-hover:bg-gray-200 transition-colors">
-                            XEM DANH MỤC
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Category 2: Hoodie -->
-                <div onclick="filterCategory('hoodie')" class="group relative h-96 overflow-hidden bg-card border border-bordercol cursor-pointer transition-all duration-300 hover:border-gray-400">
-                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" 
-                         alt="Hoodie Kh_DTS" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale contrast-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 right-6 text-center">
-                        <h3 class="font-display text-2xl font-bold uppercase tracking-wider mb-1">HOODIE & NỈ BÔNG</h3>
-                        <p class="text-xs text-gray-400 mb-3">Zip Hoodie • Pullover • 210k - 250k</p>
-                        <span class="inline-block px-5 py-2 text-[11px] font-bold tracking-widest uppercase bg-white text-black group-hover:bg-gray-200 transition-colors">
-                            XEM DANH MỤC
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Category 3: Phụ Kiện -->
-                <div onclick="filterCategory('accessory')" class="group relative h-96 overflow-hidden bg-card border border-bordercol cursor-pointer transition-all duration-300 hover:border-gray-400">
-                    <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=800&q=80" 
-                         alt="Phụ Kiện Kh_DTS" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter grayscale contrast-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 right-6 text-center">
-                        <h3 class="font-display text-2xl font-bold uppercase tracking-wider mb-1">PHỤ KIỆN STREET</h3>
-                        <p class="text-xs text-gray-400 mb-3">Mũ lưỡi trai • Túi chéo • 150k - 190k</p>
-                        <span class="inline-block px-5 py-2 text-[11px] font-bold tracking-widest uppercase bg-white text-black group-hover:bg-gray-200 transition-colors">
-                            XEM DANH MỤC
-                        </span>
-                    </div>
-                </div>
+            <div id="categoryCardsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Sẽ được tải động hoặc dự phòng từ app.js -->
             </div>
+        </div>
+    </section>
         </div>
     </section>
 
@@ -258,39 +224,8 @@
     <!-- Promo Banner Drop (Like NEON reference) -->
     <section class="py-12 border-b border-bordercol bg-darker">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-card border border-bordercol p-8 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold tracking-widest text-subtext uppercase">SPECIAL PROMO</span>
-                        <h3 class="font-display text-2xl font-bold uppercase tracking-tight mt-2 mb-3">MUA COMBO TIẾT KIỆM</h3>
-                        <p class="text-xs text-gray-400">Giảm thêm 30k khi mua combo Áo Thun + Nón hoặc Hoodie + Áo Thun.</p>
-                    </div>
-                    <button onclick="filterCategory('all')" class="mt-6 text-xs font-bold uppercase tracking-widest text-white underline hover:text-gray-300 text-left">
-                        KHÁM PHÁ NGAY →
-                    </button>
-                </div>
-
-                <div class="bg-card border border-bordercol p-8 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold tracking-widest text-subtext uppercase">FAST DELIVERY</span>
-                        <h3 class="font-display text-2xl font-bold uppercase tracking-tight mt-2 mb-3">SHIP HẢI HẬU 2H</h3>
-                        <p class="text-xs text-gray-400">Giao hàng hỏa tốc trong ngày các xã quanh TT. Yên Định, Hải Hậu.</p>
-                    </div>
-                    <a href="tel:545654254245" class="mt-6 text-xs font-bold uppercase tracking-widest text-white underline hover:text-gray-300">
-                        GỌI SHIP NGAY: 545654254245 →
-                    </a>
-                </div>
-
-                <div class="bg-card border border-bordercol p-8 flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold tracking-widest text-subtext uppercase">TIKTOK & SHOPEE</span>
-                        <h3 class="font-display text-2xl font-bold uppercase tracking-tight mt-2 mb-3">SĂN VOUCHER LIVE</h3>
-                        <p class="text-xs text-gray-400">Follow kênh TikTok của Kh_DTS để săn mã freeship và deal 1k mỗi tuần.</p>
-                    </div>
-                    <button onclick="openPlatformModal()" class="mt-6 text-xs font-bold uppercase tracking-widest text-white underline hover:text-gray-300 text-left">
-                        CHỌN KÊNH SĂN SALE →
-                    </button>
-                </div>
+            <div id="promoCardsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Rendered dynamically by app.js -->
             </div>
         </div>
     </section>
@@ -368,27 +303,27 @@
                             <i class="fa-solid fa-location-dot mt-1 text-white text-base"></i>
                             <div>
                                 <strong class="text-white block">Địa chỉ Showroom:</strong>
-                                <span>Thị trấn Yên Định, huyện Hải Hậu, tỉnh Nam Định</span>
+                                <span id="storeAddressText">Thị trấn Yên Định, huyện Hải Hậu, tỉnh Nam Định</span>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
                             <i class="fa-solid fa-clock mt-1 text-white text-base"></i>
                             <div>
                                 <strong class="text-white block">Giờ mở cửa:</strong>
-                                <span>08:30 – 22:00 (Mở cửa tất cả các ngày trong tuần)</span>
+                                <span id="storeHoursText">08:30 – 22:00 (Mở cửa tất cả các ngày trong tuần)</span>
                             </div>
                         </div>
                         <div class="flex items-start gap-3">
                             <i class="fa-solid fa-phone mt-1 text-white text-base"></i>
                             <div>
                                 <strong class="text-white block">Hotline đặt hàng & giữ đồ:</strong>
-                                <a href="tel:545654254245" class="text-white font-bold hover:underline">545654254245</a>
+                                <a id="storeHotlineLink" href="tel:545654254245" class="text-white font-bold hover:underline hotline-text">545654254245</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex flex-wrap gap-3">
-                        <a href="tel:545654254245" class="px-6 py-3 bg-white text-black font-extrabold text-xs uppercase tracking-widest hover:bg-gray-200 transition-colors">
+                        <a id="storeCallBtn" href="tel:545654254245" class="px-6 py-3 bg-white text-black font-extrabold text-xs uppercase tracking-widest hover:bg-gray-200 transition-colors hotline-href">
                             <i class="fa-solid fa-phone mr-2"></i> GỌI HOTLINE
                         </a>
                         <button onclick="openZaloModal()" class="px-6 py-3 border border-bordercol bg-card hover:border-gray-400 text-white font-bold text-xs uppercase tracking-widest transition-colors">
@@ -399,14 +334,14 @@
 
                 <!-- Store Image / Visual -->
                 <div class="relative overflow-hidden border border-bordercol bg-card aspect-video lg:aspect-square">
-                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80" 
+                    <img id="storeImgVisual" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1000&q=80" 
                          alt="Store Kh_DTS Yen Dinh Hai Hau" 
                          class="w-full h-full object-cover filter grayscale contrast-125">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
                         <div>
-                            <span class="text-[10px] font-bold tracking-widest bg-white text-black px-2 py-0.5 uppercase">FLAGSHIP STORE</span>
-                            <h4 class="font-display text-xl font-bold uppercase tracking-wide mt-1">KH_DTS YÊN ĐỊNH</h4>
-                            <p class="text-xs text-gray-300">Không gian mua sắm streetwear dành riêng cho giới trẻ Nam Định</p>
+                            <span id="storeBadgeVisual" class="text-[10px] font-bold tracking-widest bg-white text-black px-2 py-0.5 uppercase">FLAGSHIP STORE</span>
+                            <h4 id="storeTitleVisual" class="font-display text-xl font-bold uppercase tracking-wide mt-1">KH_DTS YÊN ĐỊNH</h4>
+                            <p id="storeSubtitleVisual" class="text-xs text-gray-300">Không gian mua sắm streetwear dành riêng cho giới trẻ Nam Định</p>
                         </div>
                     </div>
                 </div>
@@ -414,7 +349,7 @@
         </div>
     </section>
 
-    <!-- Lookbook / Instagram Community Vibe (Layout tương tự mẫu tham khảo) -->
+    <!-- Lookbook / Instagram Community Vibe -->
     <section class="py-16 border-b border-bordercol">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
@@ -423,25 +358,8 @@
                 <p class="text-xs text-gray-400 mt-1">Check-in cùng outfit của shop trên TikTok / Facebook để nhận voucher 20k</p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <div class="aspect-square bg-card border border-bordercol overflow-hidden group">
-                    <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover filter grayscale group-hover:scale-110 transition-transform duration-500">
-                </div>
+            <div id="lookbookGrid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                <!-- Rendered dynamically by app.js -->
             </div>
         </div>
     </section>
@@ -452,21 +370,21 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                 <!-- Col 1: About & Logo -->
                 <div class="space-y-4">
-                    <img src="assets/logo.png" alt="Kh_DTS Logo" class="h-10 w-auto object-contain">
+                    <img id="footerLogoImg" src="assets/logo.png" alt="Kh_DTS Logo" class="h-10 w-auto object-contain">
                     <p class="text-xs text-gray-400 leading-relaxed">
                         Thương hiệu thời trang nam Streetwear hàng đầu cho giới trẻ tại Hải Hậu - Nam Định. Tự tin thể hiện cá tính riêng với các thiết kế độc bản, chất lượng cao và mức giá hợp lý nhất.
                     </p>
                     <div class="flex items-center space-x-3 text-white text-base">
-                        <a href="https://tiktok.com" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="TikTok">
+                        <a id="footerSocialTiktok" href="https://tiktok.com" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="TikTok">
                             <i class="fa-brands fa-tiktok"></i>
                         </a>
-                        <a href="https://shopee.vn" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Shopee">
+                        <a id="footerSocialShopee" href="https://shopee.vn" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Shopee">
                             <i class="fa-solid fa-bag-shopping"></i>
                         </a>
-                        <a href="https://facebook.com" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Facebook">
+                        <a id="footerSocialFacebook" href="https://facebook.com" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Facebook">
                             <i class="fa-brands fa-facebook-f"></i>
                         </a>
-                        <a href="https://zalo.me/545654254245" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Zalo">
+                        <a id="footerSocialZalo" href="https://zalo.me/545654254245" target="_blank" class="w-8 h-8 rounded-full bg-card border border-bordercol flex items-center justify-center hover:bg-white hover:text-black transition-colors" title="Zalo">
                             <i class="fa-solid fa-comment-dots"></i>
                         </a>
                     </div>
@@ -490,7 +408,7 @@
                         <li><a href="#size-guide" class="hover:text-white transition-colors">Hướng dẫn chọn size</a></li>
                         <li><a href="#store" class="hover:text-white transition-colors">Chính sách đổi trả 7 ngày</a></li>
                         <li><a href="#store" class="hover:text-white transition-colors">Kiểm tra hàng trước khi thanh toán</a></li>
-                        <li><a href="#store" class="hover:text-white transition-colors">Chỉ đường tới showroom</a></li>
+                        <li><a href="admin.html" class="text-amber-400 hover:underline"><i class="fa-solid fa-sliders mr-1"></i>Hệ thống Quản Trị (CMS Admin)</a></li>
                     </ul>
                 </div>
 
@@ -500,11 +418,11 @@
                     <div class="space-y-3">
                         <p class="flex items-center gap-2">
                             <i class="fa-solid fa-phone text-white"></i>
-                            <span>Hotline: <strong class="text-white">545654254245</strong></span>
+                            <span>Hotline: <strong class="text-white hotline-text">545654254245</strong></span>
                         </p>
                         <p class="flex items-start gap-2">
                             <i class="fa-solid fa-map-pin text-white mt-0.5"></i>
-                            <span>TT. Yên Định, Hải Hậu, Nam Định</span>
+                            <span id="footerAddressText">TT. Yên Định, Hải Hậu, Nam Định</span>
                         </p>
                         <p class="flex items-center gap-2">
                             <i class="fa-solid fa-shield-halved text-emerald-400"></i>
@@ -516,7 +434,9 @@
 
             <div class="pt-8 border-t border-bordercol flex flex-col sm:flex-row items-center justify-between text-[11px] text-subtext gap-4">
                 <p>© 2026 Kh_DTS Fashion Store. All rights reserved. Designed for Youth in Hai Hau, Nam Dinh.</p>
-                <div class="flex space-x-6">
+                <div class="flex items-center space-x-6">
+                    <a href="admin.html" class="text-gray-400 hover:text-white flex items-center gap-1.5"><i class="fa-solid fa-lock text-[10px]"></i> Đăng nhập Quản trị</a>
+                    <span>•</span>
                     <span>BE YOURSELF</span>
                     <span>•</span>
                     <span>STREET CULTURE</span>
@@ -582,48 +502,367 @@
 
             <div class="mt-4 pt-4 border-t border-bordercol text-center">
                 <p class="text-[11px] text-gray-400">
-                    Khách tại Nam Định muốn thử đồ: Gọi ngay <a href="tel:545654254245" class="text-white font-bold">545654254245</a> (TT. Yên Định)
+                    Khách tại Nam Định muốn thử đồ: Gọi ngay <a href="tel:545654254245" class="text-white font-bold hotline-text">545654254245</a> (TT. Yên Định)
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- CART DRAWER (Bảng giỏ đồ nhanh) -->
-    <div id="cartDrawer" class="fixed inset-0 z-50 hidden bg-black/70 backdrop-blur-sm">
-        <div class="absolute right-0 top-0 bottom-0 max-w-md w-full bg-darker border-l border-bordercol p-6 flex flex-col justify-between">
+    <!-- CART DRAWER (Bảng giỏ đồ nâng cao: Tính ship Hải Hậu, Voucher & Chốt đơn VietQR) -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-sm">
+        <div class="absolute right-0 top-0 bottom-0 max-w-md w-full bg-darker border-l border-bordercol p-5 sm:p-6 flex flex-col justify-between overflow-y-auto">
             <div>
                 <div class="flex items-center justify-between pb-4 border-b border-bordercol">
-                    <h3 class="font-display text-lg font-bold uppercase tracking-wider text-white">GIỎ HÀNG CỦA BẠN</h3>
-                    <button onclick="closeCartDrawer()" class="text-gray-400 hover:text-white text-lg">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-white"></i>
+                        <h3 class="font-display text-lg font-bold uppercase tracking-wider text-white">GIỎ HÀNG CỦA BẠN</h3>
+                    </div>
+                    <button onclick="closeCartDrawer()" class="text-gray-400 hover:text-white text-lg p-1">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
 
-                <div id="cartItemsList" class="py-4 space-y-3 overflow-y-auto max-h-[60vh]">
+                <!-- Danh sách sản phẩm trong giỏ -->
+                <div id="cartItemsList" class="py-4 space-y-3 max-h-[35vh] overflow-y-auto pr-1">
                     <!-- Rendered by app.js -->
+                </div>
+
+                <!-- Lựa chọn hình thức vận chuyển -->
+                <div class="py-3 border-t border-bordercol space-y-2 text-xs">
+                    <span class="font-bold uppercase tracking-wider text-gray-300 block text-[11px]">Phương thức nhận hàng:</span>
+                    <label class="flex items-center justify-between p-2.5 bg-card border border-bordercol rounded cursor-pointer hover:border-gray-500 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <input type="radio" name="shippingMethod" value="haihau" checked onchange="updateCartShipping(this.value)" class="text-white">
+                            <span>Ship Hỏa Tốc Hải Hậu (2H)</span>
+                        </div>
+                        <span id="shippingFeeHaiHauText" class="font-bold text-emerald-400">15.000đ</span>
+                    </label>
+                    <label class="flex items-center justify-between p-2.5 bg-card border border-bordercol rounded cursor-pointer hover:border-gray-500 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <input type="radio" name="shippingMethod" value="nationwide" onchange="updateCartShipping(this.value)" class="text-white">
+                            <span>Giao Tiêu Chuẩn Toàn Quốc</span>
+                        </div>
+                        <span id="shippingFeeNationwideText" class="font-bold text-gray-300">25.000đ</span>
+                    </label>
+                </div>
+
+                <!-- Ô nhập Mã Voucher & Gợi ý mã có sẵn -->
+                <div class="py-3 border-t border-bordercol space-y-2">
+                    <span class="font-bold uppercase tracking-wider text-gray-300 block text-[11px]">Mã giảm giá / Voucher:</span>
+                    <div class="flex gap-2">
+                        <input type="text" id="cartVoucherInput" placeholder="Nhập mã (KHDTS10, FREESHIP...)" class="flex-1 bg-card border border-bordercol px-3 py-2 text-xs text-white uppercase rounded focus:border-white focus:outline-none font-bold">
+                        <button onclick="applyCartVoucher()" class="px-3.5 py-2 bg-white text-black text-xs font-bold uppercase rounded hover:bg-gray-200 transition-colors">
+                            Áp Dụng
+                        </button>
+                    </div>
+                    <!-- Quick voucher pills -->
+                    <div class="flex flex-wrap gap-1.5 pt-1 text-[10px]">
+                        <button type="button" onclick="quickApplyVoucher('KHDTS10')" class="px-2 py-0.5 rounded bg-white/10 hover:bg-white hover:text-black text-gray-300 border border-bordercol font-mono font-bold transition-colors">
+                            🎟️ KHDTS10 (-10k)
+                        </button>
+                        <button type="button" onclick="quickApplyVoucher('FREESHIP')" class="px-2 py-0.5 rounded bg-white/10 hover:bg-white hover:text-black text-gray-300 border border-bordercol font-mono font-bold transition-colors">
+                            🚚 FREESHIP
+                        </button>
+                        <button type="button" onclick="quickApplyVoucher('HAIHAU2H')" class="px-2 py-0.5 rounded bg-white/10 hover:bg-white hover:text-black text-gray-300 border border-bordercol font-mono font-bold transition-colors">
+                            ⚡ HAIHAU2H
+                        </button>
+                    </div>
+                    <div id="cartVoucherMsg" class="text-[11px] font-semibold hidden"></div>
                 </div>
             </div>
 
-            <div class="pt-4 border-t border-bordercol">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-xs uppercase text-subtext font-bold">Tổng tiền tạm tính:</span>
-                    <span id="cartTotalPrice" class="font-display text-xl font-bold text-white">0đ</span>
+            <!-- Tổng kết tiền & Nút chốt đơn -->
+            <div class="pt-4 border-t border-bordercol space-y-3">
+                <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between text-gray-400">
+                        <span>Tiền hàng:</span>
+                        <span id="cartSubtotalText" class="text-white font-medium">0đ</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>Phí vận chuyển:</span>
+                        <span id="cartShippingText" class="text-white font-medium">15.000đ</span>
+                    </div>
+                    <div id="cartDiscountRow" class="flex justify-between text-emerald-400 hidden">
+                        <span>Giảm giá Voucher:</span>
+                        <span id="cartDiscountText" class="font-bold">-0đ</span>
+                    </div>
+                    <div class="flex justify-between text-sm font-bold pt-2 border-t border-bordercol text-white">
+                        <span>Tổng thanh toán:</span>
+                        <span id="cartFinalTotalText" class="font-display text-xl text-white">0đ</span>
+                    </div>
                 </div>
-                <div class="space-y-2">
-                    <button onclick="checkoutCart('zalo')" class="w-full py-3 bg-[#0068FF] hover:bg-[#0056d6] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-comment-dots"></i> GỬI DANH SÁCH QUA ZALO CHỐT ĐƠN
+
+                <div class="space-y-2 pt-1">
+                    <button onclick="openDirectCheckoutModal()" class="w-full py-3.5 bg-white text-black font-extrabold text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors shadow-lg">
+                        <i class="fa-solid fa-bolt text-amber-500"></i> ĐẶT HÀNG NGAY (VIETQR / COD)
                     </button>
-                    <button onclick="checkoutCart('shopee')" class="w-full py-3 bg-[#EE4D2D] hover:bg-[#d63f20] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-bag-shopping"></i> MUA TẤT CẢ QUA SHOPEE
-                    </button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="checkoutCart('zalo')" class="py-2.5 bg-[#0068FF] hover:bg-[#0056d6] text-white font-bold text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5 rounded-none">
+                            <i class="fa-solid fa-comment-dots"></i> Nhắn Zalo
+                        </button>
+                        <button onclick="checkoutCart('shopee')" class="py-2.5 bg-[#EE4D2D] hover:bg-[#d63f20] text-white font-bold text-[11px] uppercase tracking-wider flex items-center justify-center gap-1.5 rounded-none">
+                            <i class="fa-solid fa-bag-shopping"></i> Qua Shopee
+                        </button>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: XEM CHI TIẾT SẢN PHẨM (Quick View Modal / PDP) -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-card border border-bordercol max-w-3xl w-full p-5 sm:p-7 relative max-h-[92vh] overflow-y-auto rounded-none">
+            <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                <!-- Cột trái: Thư viện ảnh sản phẩm -->
+                <div>
+                    <div class="aspect-[4/5] bg-darker overflow-hidden border border-bordercol mb-3">
+                        <img id="detailMainImg" src="" alt="Sản phẩm" class="w-full h-full object-cover filter contrast-110">
+                    </div>
+                    <div id="detailThumbnailsGrid" class="grid grid-cols-4 gap-2">
+                        <!-- Rendered by app.js -->
+                    </div>
+                </div>
+
+                <!-- Cột phải: Thông tin, Tồn kho & Đặt mua -->
+                <div class="flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span id="detailCategoryBadge" class="text-[10px] uppercase font-bold text-subtext tracking-wider bg-white/10 px-2 py-0.5">ÁO THUN</span>
+                            <span id="detailTagBadge" class="text-[10px] font-extrabold uppercase px-2 py-0.5 bg-white text-black">BEST SELLER</span>
+                        </div>
+
+                        <h2 id="detailTitle" class="font-display text-lg sm:text-xl font-bold uppercase tracking-tight text-white mb-3">
+                            Tên sản phẩm
+                        </h2>
+
+                        <!-- Giá & Tiết kiệm -->
+                        <div class="flex items-baseline gap-3 mb-4">
+                            <span id="detailPrice" class="text-2xl font-black text-white font-display">189.000đ</span>
+                            <span id="detailOriginalPrice" class="text-sm text-gray-500 line-through">240.000đ</span>
+                            <span id="detailDiscountPercent" class="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5">-21%</span>
+                        </div>
+
+                        <!-- Gợi ý form người mẫu mặc -->
+                        <div class="p-3 bg-darker border border-bordercol rounded mb-4 text-xs text-gray-300 flex items-start gap-2.5">
+                            <i class="fa-solid fa-user-check text-amber-400 mt-0.5"></i>
+                            <div>
+                                <strong class="text-white block mb-0.5">Thông tin dáng mẫu:</strong>
+                                <span id="detailModelInfo">Mẫu nam 1m74 - 63kg mặc Size L chuẩn form Oversize phủ mông nhẹ.</span>
+                            </div>
+                        </div>
+
+                        <!-- Chọn Size kèm số lượng tồn kho từng size -->
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="text-xs uppercase font-bold text-gray-300">Chọn Size & Tồn kho:</label>
+                                <button type="button" onclick="toggleDetailSizeChart()" class="text-[11px] text-gray-400 hover:text-white underline">
+                                    <i class="fa-solid fa-ruler-combined mr-1"></i>Bảng số đo áo
+                                </button>
+                            </div>
+                            <div id="detailSizesContainer" class="flex flex-wrap gap-2">
+                                <!-- Rendered by app.js: Size kèm (còn X cái) -->
+                            </div>
+                        </div>
+
+                        <!-- Bảng số đo chi tiết (Ẩn/Hiện) -->
+                        <div id="detailSizeChartBox" class="hidden p-3 bg-darker border border-gray-700 text-xs mb-4">
+                            <div class="font-bold uppercase text-gray-300 mb-2">Thông số đo sản phẩm (cm):</div>
+                            <table class="w-full text-center text-[11px] text-gray-300">
+                                <thead>
+                                    <tr class="border-b border-bordercol text-gray-400 font-bold">
+                                        <th class="py-1">Size</th>
+                                        <th class="py-1">Dài Áo</th>
+                                        <th class="py-1">Vòng Ngực</th>
+                                        <th class="py-1">Rộng Vai</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="detailSizeChartBody">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Mô tả chất liệu -->
+                        <div class="text-xs text-gray-300 leading-relaxed mb-6">
+                            <strong class="text-white block mb-1">Mô tả chi tiết:</strong>
+                            <p id="detailDesc">Cotton 100% 2 chiều định lượng 250gsm, hiệu ứng wash acid cá tính...</p>
+                        </div>
+                    </div>
+
+                    <!-- Nút hành động -->
+                    <div class="space-y-2.5 pt-4 border-t border-bordercol">
+                        <div class="grid grid-cols-2 gap-3">
+                            <button onclick="addCurrentDetailToCart()" class="py-3 bg-card hover:bg-neutral-800 border border-white text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors">
+                                <i class="fa-solid fa-cart-plus"></i> THÊM VÀO GIỎ
+                            </button>
+                            <button onclick="buyCurrentDetailNow()" class="py-3 bg-white hover:bg-gray-200 text-black font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow">
+                                <i class="fa-solid fa-bolt text-amber-500"></i> MUA NGAY
+                            </button>
+                        </div>
+                        <button onclick="openPlatformModal()" class="w-full text-[11px] text-gray-400 hover:text-white py-1.5 text-center block">
+                            Hoặc đặt qua <strong class="text-[#EE4D2D]">Shopee</strong> / <strong class="text-white">TikTok Shop</strong> / <strong class="text-[#0068FF]">Zalo</strong> →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: CHỐT ĐƠN TRỰC TIẾP & QUÉT MÃ VIETQR (Direct Checkout Modal) -->
+    <div id="directCheckoutModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-card border border-bordercol max-w-2xl w-full p-5 sm:p-7 relative max-h-[92vh] overflow-y-auto rounded-none">
+            <button onclick="closeDirectCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <span class="text-[10px] font-bold tracking-widest uppercase bg-white/10 px-2.5 py-1 text-gray-300">ĐẶT HÀNG TRỰC TIẾP</span>
+                <h3 class="font-display text-xl sm:text-2xl font-bold uppercase tracking-tight mt-2 text-white">XÁC NHẬN ĐƠN HÀNG</h3>
+                <p class="text-xs text-gray-400 mt-1">Giao hỏa tốc tại Hải Hậu trong 2h hoặc chuyển phát toàn quốc</p>
+            </div>
+
+            <form id="directCheckoutForm" onsubmit="submitDirectOrder(event)" class="space-y-5">
+                <!-- Thông tin khách hàng -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white border-b border-bordercol pb-2">1. Thông tin người nhận:</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-300 mb-1">Họ và tên (*):</label>
+                            <input type="text" id="orderCustomerName" required placeholder="Ví dụ: Nguyễn Văn Khá" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 text-xs text-white rounded focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-300 mb-1">Số điện thoại nhận hàng (*):</label>
+                            <input type="tel" id="orderCustomerPhone" required placeholder="Ví dụ: 0912345678" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 text-xs text-white rounded focus:border-white focus:outline-none font-mono">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-300 mb-1">Địa chỉ chi tiết (Thôn/Xóm, Xã/Thị trấn, Huyện, Tỉnh) (*):</label>
+                        <input type="text" id="orderCustomerAddress" required placeholder="Ví dụ: Xóm 4, xã Hải Phương, Hải Hậu, Nam Định" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 text-xs text-white rounded focus:border-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-300 mb-1">Ghi chú cho shop (không bắt buộc):</label>
+                        <input type="text" id="orderCustomerNote" placeholder="Ví dụ: Giao ngoài giờ hành chính, gọi trước khi ship..." class="w-full bg-darker border border-bordercol px-3.5 py-2 text-xs text-white rounded focus:border-white focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Phương thức thanh toán -->
+                <div class="space-y-3 pt-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-white border-b border-bordercol pb-2">2. Phương thức thanh toán:</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center gap-3 p-3 bg-darker border border-bordercol rounded cursor-pointer hover:border-gray-400 transition-colors">
+                            <input type="radio" name="orderPaymentMethod" value="vietqr" checked onchange="togglePaymentDisplay('vietqr')" class="text-white">
+                            <div>
+                                <strong class="text-xs block text-white flex items-center gap-1.5">
+                                    <i class="fa-solid fa-qrcode text-emerald-400"></i> Quét Mã VietQR (Napas 24/7)
+                                </strong>
+                                <span class="text-[10px] text-gray-400">Chuyển khoản qua App mọi ngân hàng</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-darker border border-bordercol rounded cursor-pointer hover:border-gray-400 transition-colors">
+                            <input type="radio" name="orderPaymentMethod" value="cod" onchange="togglePaymentDisplay('cod')" class="text-white">
+                            <div>
+                                <strong class="text-xs block text-white flex items-center gap-1.5">
+                                    <i class="fa-solid fa-hand-holding-dollar text-amber-400"></i> Thanh toán khi nhận (COD)
+                                </strong>
+                                <span class="text-[10px] text-gray-400">Kiểm tra đồ rồi thanh toán tiền mặt</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Khung VietQR động -->
+                    <div id="vietqrPreviewBox" class="p-4 bg-darker border border-emerald-500/30 rounded text-center space-y-3">
+                        <div class="text-xs text-gray-300">
+                            Mã VietQR tự động theo số tiền đơn hàng: <strong id="vietqrAmountText" class="text-emerald-400 text-sm">0đ</strong>
+                        </div>
+                        <div class="inline-block p-2 bg-white rounded-lg shadow-md">
+                            <img id="vietqrImage" src="" alt="Mã VietQR Ngân Hàng" class="w-48 h-48 sm:w-56 sm:h-56 object-contain mx-auto">
+                        </div>
+                        <div class="text-[11px] text-gray-400 space-y-1">
+                            <div>Ngân hàng: <strong id="vietqrBankName" class="text-white">MBBank</strong> • STK: <strong id="vietqrAccountNo" class="text-white font-mono">0389999999</strong></div>
+                            <div>Chủ tài khoản: <strong id="vietqrAccountName" class="text-white">NGUYEN VAN KHA</strong></div>
+                            <div>Nội dung chuyển khoản: <strong id="vietqrMemo" class="text-amber-400 font-mono">DTS-ORDER</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tóm tắt số tiền & Nút xác nhận -->
+                <div class="p-4 bg-darker border border-bordercol rounded space-y-2 text-xs">
+                    <div class="flex justify-between text-gray-400">
+                        <span>Tiền hàng:</span>
+                        <span id="orderSubtotalText" class="text-white font-medium">0đ</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>Phí vận chuyển:</span>
+                        <span id="orderShippingText" class="text-white font-medium">15.000đ</span>
+                    </div>
+                    <div id="orderDiscountRow" class="flex justify-between text-emerald-400 hidden">
+                        <span>Giảm giá Voucher:</span>
+                        <span id="orderDiscountText" class="font-bold">-0đ</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold pt-2 border-t border-bordercol text-white">
+                        <span>Tổng thanh toán:</span>
+                        <span id="orderFinalTotalText" class="font-display text-xl text-white">0đ</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-white text-black font-extrabold text-xs uppercase tracking-widest hover:bg-gray-200 transition-colors shadow flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-check"></i> XÁC NHẬN HOÀN TẤT ĐẶT HÀNG
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ĐẶT HÀNG THÀNH CÔNG (Order Success Modal) -->
+    <div id="orderSuccessModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-card border border-bordercol max-w-md w-full p-6 sm:p-8 text-center rounded-none relative animate-fade-in">
+            <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl mx-auto mb-4 border border-emerald-500/40">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-3 py-1">ĐẶT HÀNG THÀNH CÔNG</span>
+            <h3 class="font-display text-2xl font-black uppercase tracking-tight text-white mt-2 mb-1">CẢM ƠN BẠN!</h3>
+            <p class="text-xs text-gray-400 mb-6">Đơn hàng của bạn đã được chuyển tới shop Kh_DTS tại Hải Hậu.</p>
+
+            <div class="p-4 bg-darker border border-bordercol text-left text-xs space-y-2 mb-6">
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Mã đơn hàng:</span>
+                    <strong id="successOrderCode" class="text-amber-400 font-mono text-sm">#DTS-12345</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Tổng tiền:</span>
+                    <strong id="successOrderTotal" class="text-white text-sm font-bold">189.000đ</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Hình thức:</span>
+                    <span id="successPaymentMethod" class="text-gray-300 font-medium">Chuyển khoản VietQR</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-400">Trạng thái:</span>
+                    <span class="text-emerald-400 font-semibold">Đã ghi nhận vào hệ thống</span>
+                </div>
+            </div>
+
+            <div class="space-y-2.5">
+                <button onclick="confirmOrderWithZalo()" class="w-full py-3 bg-[#0068FF] hover:bg-[#0056d6] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors">
+                    <i class="fa-solid fa-comment-dots"></i> NHẮN ZALO SHOP ĐỂ GIỮ ĐỒ NHANH
+                </button>
+                <button onclick="printOrderInvoice()" class="w-full py-2.5 bg-darker hover:bg-neutral-800 border border-bordercol text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors">
+                    <i class="fa-solid fa-receipt"></i> XEM & IN BIÊN NHẬN HÓA ĐƠN
+                </button>
+                <button onclick="closeSuccessModal()" class="w-full py-2 text-xs text-gray-400 hover:text-white transition-colors">
+                    Tiếp tục xem các mẫu khác →
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Floating Quick Contact Buttons for Mobile -->
     <div class="fixed bottom-5 right-5 z-40 flex flex-col gap-3">
-        <a href="tel:545654254245" class="w-12 h-12 rounded-full bg-white text-black shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200" title="Gọi Hotline">
+        <a href="tel:545654254245" class="w-12 h-12 rounded-full bg-white text-black shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200 hotline-href" title="Gọi Hotline">
             <i class="fa-solid fa-phone text-lg"></i>
         </a>
         <button onclick="openZaloModal()" class="w-12 h-12 rounded-full bg-[#0068FF] text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200" title="Chat Zalo">
@@ -632,6 +871,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="data.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

@@ -142,6 +142,15 @@
                     <span id="voucherBadgeCount" class="text-[10px] px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 font-bold">3</span>
                 </button>
 
+                <!-- Tab Quản Lý Bài Viết & Blog CMS -->
+                <button onclick="switchTab('blog')" id="tabBtn-blog" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 hover:bg-white/5 hover:text-white">
+                    <span class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-newspaper text-sm text-cyan-400"></i>
+                        <span>Bài Viết & Blog</span>
+                    </span>
+                    <span id="blogBadgeCount" class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold">3</span>
+                </button>
+
                 <!-- Tab Cài Đặt Shop & VietQR -->
                 <button onclick="switchTab('store')" id="tabBtn-store" class="tab-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-colors text-gray-400 hover:bg-white/5 hover:text-white">
                     <span class="flex items-center gap-2.5">
@@ -548,6 +557,43 @@
                     </div>
                 </div>
             </section>
+
+            <!-- TAB 8: QUẢN LÝ BÀI VIẾT & CẨM NANG BLOG (CMS) -->
+            <section id="tab-blog" class="tab-content hidden space-y-6">
+                <div class="bg-card border border-bordercol p-5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="font-display text-xl font-bold uppercase tracking-tight text-white flex items-center gap-2">
+                            <i class="fa-solid fa-newspaper text-cyan-400"></i>
+                            <span>QUẢN LÝ BÀI VIẾT & CẨM NANG PHỐI ĐỒ (CMS)</span>
+                        </h2>
+                        <p class="text-xs text-gray-400 mt-0.5">Soạn thảo bài viết chia sẻ phong cách, hướng dẫn chọn size và gắn thẻ sản phẩm "Shop The Look"</p>
+                    </div>
+                    <button onclick="openArticleModal()" class="px-4 py-2 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2 shadow">
+                        <i class="fa-solid fa-pen-nib"></i> Thêm Bài Viết Mới
+                    </button>
+                </div>
+
+                <!-- Articles Table -->
+                <div class="bg-card border border-bordercol rounded-xl overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-darker text-gray-400 font-bold uppercase tracking-wider border-b border-bordercol">
+                                <tr>
+                                    <th class="py-3 px-4">Ảnh Bìa</th>
+                                    <th class="py-3 px-4">Tiêu Đề Bài Viết</th>
+                                    <th class="py-3 px-4">Chuyên Mục</th>
+                                    <th class="py-3 px-4">Ngày Đăng</th>
+                                    <th class="py-3 px-4">Món Gắn Thẻ (Shop The Look)</th>
+                                    <th class="py-3 px-4 text-right">Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminArticlesTableBody" class="divide-y divide-bordercol">
+                                <!-- Rendered dynamically by admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
@@ -699,6 +745,71 @@
                 <div class="pt-3 border-t border-bordercol flex justify-end gap-2">
                     <button type="button" onclick="closeVoucherModal()" class="px-4 py-2 bg-darker border border-bordercol rounded text-gray-300 hover:text-white">Hủy</button>
                     <button type="submit" class="px-5 py-2 bg-white text-black font-extrabold uppercase rounded hover:bg-gray-200">Tạo Mã Ngay</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: THÊM / SỬA BÀI VIẾT BLOG (Article Modal) -->
+    <div id="articleModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-card border border-bordercol max-w-2xl w-full p-6 relative max-h-[92vh] overflow-y-auto rounded-xl">
+            <button onclick="closeArticleModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 id="articleModalTitle" class="font-display text-lg font-bold uppercase tracking-tight text-white mb-4">SOẠN THẢO BÀI VIẾT BLOG</h3>
+
+            <form id="articleForm" onsubmit="saveArticleForm(event)" class="space-y-4 text-xs">
+                <input type="hidden" id="formArticleId">
+
+                <div>
+                    <label class="block font-bold uppercase text-gray-300 mb-1">Tiêu đề bài viết (*):</label>
+                    <input type="text" id="formArticleTitle" required placeholder="Ví dụ: 5 Cách Phối Đồ Streetwear Oversize Cho Nam Gen Z..." class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded text-white font-bold focus:border-white focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold uppercase text-gray-300 mb-1">Chuyên mục (*):</label>
+                        <select id="formArticleCategory" required class="w-full bg-darker border border-bordercol px-3 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                            <option value="mix-match">Mix & Match Phong Cách</option>
+                            <option value="tips">Cẩm Nang & Bảo Quản</option>
+                            <option value="trends">Xu Hướng 2026</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold uppercase text-gray-300 mb-1">Thời gian đọc (ước tính):</label>
+                        <input type="text" id="formArticleReadTime" placeholder="4 phút đọc" value="4 phút đọc" class="w-full bg-darker border border-bordercol px-3 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold uppercase text-gray-300 mb-1">Đường dẫn ảnh bìa bài viết (URL) (*):</label>
+                    <input type="url" id="formArticleImage" required placeholder="https://images.unsplash.com/..." class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-bold uppercase text-gray-300 mb-1">Tóm tắt ngắn (Excerpt) (*):</label>
+                    <textarea id="formArticleExcerpt" required rows="2" placeholder="Tóm tắt nội dung chính để hiển thị ngoài danh sách..." class="w-full bg-darker border border-bordercol p-3 rounded text-white focus:border-white focus:outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-bold uppercase text-gray-300 mb-1">Nội dung chi tiết (HTML / Đoạn văn) (*):</label>
+                    <textarea id="formArticleContent" required rows="6" placeholder="<p>Nội dung bài viết...</p>" class="w-full bg-darker border border-bordercol p-3 rounded text-white font-mono text-[11px] focus:border-white focus:outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-bold uppercase text-gray-300 mb-1">Gắn thẻ các sản phẩm xuất hiện (Shop The Look - Nhập ID cách nhau dấu phẩy):</label>
+                    <input type="text" id="formArticleRelatedProducts" placeholder="Ví dụ: 1, 2, 4" value="1, 2" class="w-full bg-darker border border-bordercol px-3.5 py-2 rounded text-white font-mono focus:border-white focus:outline-none">
+                    <span class="text-[10px] text-gray-400 mt-0.5 block">Nhập ID sản phẩm (xem trong tab Kho & Sản phẩm) để khách có thể mua ngay trong bài viết.</span>
+                </div>
+
+                <div class="pt-4 border-t border-bordercol flex justify-end gap-3">
+                    <button type="button" onclick="closeArticleModal()" class="px-5 py-2.5 bg-darker border border-bordercol rounded text-gray-300 hover:text-white">
+                        Hủy
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 bg-white text-black font-extrabold uppercase rounded hover:bg-gray-200 shadow">
+                        <i class="fa-solid fa-check mr-1.5"></i> Lưu Bài Viết
+                    </button>
                 </div>
             </form>
         </div>

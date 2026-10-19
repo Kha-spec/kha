@@ -72,6 +72,6 @@ html {
     }
 }
 
-.animate-fade-in {
+.animate-fade-in, .page-view {
     animation: fadeIn 0.25s ease-out forwards;
 }

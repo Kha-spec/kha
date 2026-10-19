@@ -52,17 +52,17 @@
             </button>
 
             <!-- Brand Logo -->
-            <a href="#" class="flex items-center space-x-3 group">
+            <a href="#/" class="flex items-center space-x-3 group">
                 <img id="headerLogoImg" src="assets/logo.png" alt="Kh_DTS Logo" class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
             </a>
 
             <!-- Desktop Nav Links -->
-            <nav class="hidden lg:flex items-center space-x-8 text-sm font-semibold tracking-wider uppercase text-gray-300">
-                <a href="#hero" class="hover:text-white transition-colors duration-200">Trang Chủ</a>
-                <a href="#categories" class="hover:text-white transition-colors duration-200">Bộ Sưu Tập</a>
-                <a href="#products" class="hover:text-white transition-colors duration-200">Trending Now</a>
-                <a href="#size-guide" class="hover:text-white transition-colors duration-200">Check Size</a>
-                <a href="#store" class="hover:text-white transition-colors duration-200">Store Hải Hậu</a>
+            <nav class="hidden lg:flex items-center space-x-6 text-xs font-bold tracking-wider uppercase text-gray-300">
+                <a href="#/" class="nav-link hover:text-white transition-colors duration-200">Trang Chủ</a>
+                <a href="#/shop" class="nav-link hover:text-white transition-colors duration-200">Cửa Hàng & Danh Mục</a>
+                <a href="#/blog" class="nav-link hover:text-white transition-colors duration-200">Cẩm Nang Phối Đồ</a>
+                <a href="#/tracking" class="nav-link hover:text-amber-300 text-amber-400/90 transition-colors duration-200 flex items-center gap-1.5"><i class="fa-solid fa-truck-fast"></i> Tra Cứu Đơn</a>
+                <a href="#/cart" class="nav-link hover:text-white transition-colors duration-200">Giỏ Hàng</a>
             </nav>
 
             <!-- Action Buttons -->
@@ -71,10 +71,10 @@
                     <i class="fa-solid fa-sliders"></i>
                     <span class="hidden md:inline">Quản Trị CMS</span>
                 </a>
-                <button onclick="scrollToProducts()" class="hidden sm:flex items-center gap-2 text-xs uppercase font-bold tracking-wider px-3 py-2 rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all">
+                <a href="#/shop" class="hidden sm:flex items-center gap-2 text-xs uppercase font-bold tracking-wider px-3 py-2 rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <span>Tìm đồ</span>
-                </button>
+                </a>
                 <button onclick="openCartDrawer()" class="relative p-2.5 rounded-full bg-card border border-bordercol hover:border-gray-500 transition-colors">
                     <i class="fa-solid fa-bag-shopping text-base"></i>
                     <span id="cartCount" class="absolute -top-1 -right-1 bg-white text-black font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">0</span>
@@ -84,11 +84,11 @@
 
         <!-- Mobile Drawer Menu -->
         <div id="mobileMenu" class="hidden lg:hidden bg-darker border-b border-bordercol px-6 py-6 space-y-4">
-            <a href="#hero" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Trang Chủ</a>
-            <a href="#categories" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Bộ Sưu Tập</a>
-            <a href="#products" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Trending Now</a>
-            <a href="#size-guide" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Bảng Chọn Size</a>
-            <a href="#store" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Store Hải Hậu</a>
+            <a href="#/" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Trang Chủ</a>
+            <a href="#/shop" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Cửa Hàng & Danh Mục</a>
+            <a href="#/blog" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Cẩm Nang Phối Đồ (Blog)</a>
+            <a href="#/tracking" class="mobile-link block text-base font-bold uppercase tracking-wider text-amber-400 hover:text-amber-300"><i class="fa-solid fa-truck-fast mr-2"></i>Tra Cứu Đơn Hàng</a>
+            <a href="#/cart" class="mobile-link block text-base font-semibold uppercase tracking-wider text-gray-300 hover:text-white">Giỏ Hàng Của Bạn</a>
             <a href="admin.html" class="mobile-link flex items-center gap-2 text-base font-bold uppercase tracking-wider text-amber-400 hover:text-amber-300 pt-2 border-t border-bordercol">
                 <i class="fa-solid fa-sliders"></i> Vào Trang Quản Trị CMS
             </a>
@@ -98,6 +98,9 @@
             </div>
         </div>
     </header>
+
+    <!-- VIEW 1: TRANG CHỦ (HOME VIEW) -->
+    <div id="view-home" class="page-view">
 
     <!-- Hero Section (Phong cách Streetwear NEON Reference) -->
     <section id="hero" class="relative overflow-hidden min-h-[580px] lg:min-h-[680px] flex items-center border-b border-bordercol">
@@ -363,6 +366,635 @@
             </div>
         </div>
     </section>
+    </div> <!-- END VIEW 1: view-home -->
+
+    <!-- VIEW 2: CỬA HÀNG & DANH MỤC SẢN PHẨM (SHOP / CATEGORY VIEW) -->
+    <div id="view-shop" class="page-view hidden py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6 font-semibold uppercase tracking-wider">
+            <a href="#/" class="hover:text-white">Trang Chủ</a>
+            <span>/</span>
+            <span class="text-white" id="shopBreadcrumbTitle">Cửa Hàng & Danh Mục</span>
+        </nav>
+
+        <!-- Category Banner Header -->
+        <div class="bg-gradient-to-r from-card via-darker to-card border border-bordercol p-6 sm:p-8 mb-8 relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 bg-white text-black inline-block mb-3">BST STREETWEAR GEN Z</span>
+                <h1 id="shopHeaderTitle" class="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white mb-2">TẤT CẢ SẢN PHẨM</h1>
+                <p id="shopHeaderDesc" class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+                    Khám phá toàn bộ áo thun oversize washed tee, hoodie nỉ bông chân cua và phụ kiện đường phố độc quyền từ Kh_DTS Store Hải Hậu.
+                </p>
+            </div>
+            <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl font-display font-black pointer-events-none select-none text-white">
+                DTS
+            </div>
+        </div>
+
+        <!-- Filter & Search Bar Toolbar -->
+        <div class="bg-card border border-bordercol p-4 mb-8 space-y-4">
+            <!-- Row 1: Danh mục tabs -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-bordercol">
+                <div class="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-wider" id="shopCategoryFilterTabs">
+                    <button onclick="setShopCategory('all')" class="shop-cat-btn px-4 py-2 border border-white bg-white text-black" data-category="all">Tất cả</button>
+                    <button onclick="setShopCategory('tshirt')" class="shop-cat-btn px-4 py-2 border border-bordercol bg-darker text-gray-300 hover:border-gray-500" data-category="tshirt">Áo Thun Oversize</button>
+                    <button onclick="setShopCategory('hoodie')" class="shop-cat-btn px-4 py-2 border border-bordercol bg-darker text-gray-300 hover:border-gray-500" data-category="hoodie">Hoodie & Áo Nỉ</button>
+                    <button onclick="setShopCategory('accessory')" class="shop-cat-btn px-4 py-2 border border-bordercol bg-darker text-gray-300 hover:border-gray-500" data-category="accessory">Phụ Kiện Street</button>
+                </div>
+                <div class="text-xs text-gray-400 font-semibold" id="shopProductCountBadge">
+                    Đang hiển thị: <strong class="text-white" id="shopProductCount">0</strong> sản phẩm
+                </div>
+            </div>
+
+            <!-- Row 2: Bộ lọc chi tiết (Search, Giá, Size, Sắp xếp) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+                <!-- Search -->
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="shopSearchInput" oninput="applyShopFilters()" placeholder="Tìm tên áo, mã hàng..." class="w-full bg-darker border border-bordercol pl-9 pr-3 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                </div>
+
+                <!-- Price Range -->
+                <div>
+                    <select id="shopPriceFilter" onchange="applyShopFilters()" class="w-full bg-darker border border-bordercol px-3 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                        <option value="all">Mọi mức giá</option>
+                        <option value="under180">Dưới 180.000đ</option>
+                        <option value="180to240">Từ 180.000đ - 240.000đ</option>
+                        <option value="over240">Trên 240.000đ</option>
+                    </select>
+                </div>
+
+                <!-- Size Filter -->
+                <div>
+                    <select id="shopSizeFilter" onchange="applyShopFilters()" class="w-full bg-darker border border-bordercol px-3 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                        <option value="all">Mọi kích cỡ (Size)</option>
+                        <option value="M">Size M</option>
+                        <option value="L">Size L</option>
+                        <option value="XL">Size XL</option>
+                        <option value="Freesize">Freesize</option>
+                    </select>
+                </div>
+
+                <!-- Sort Order -->
+                <div>
+                    <select id="shopSortOrder" onchange="applyShopFilters()" class="w-full bg-darker border border-bordercol px-3 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                        <option value="popular">Phổ biến nhất</option>
+                        <option value="newest">Mới nhất vừa về</option>
+                        <option value="priceAsc">Giá thấp đến cao</option>
+                        <option value="priceDesc">Giá cao đến thấp</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div id="shopProductGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
+            <!-- Rendered by app.js -->
+        </div>
+    </div>
+
+    <!-- VIEW 3: TRANG CHI TIẾT SẢN PHẨM CHUYÊN SÂU (PDP VIEW) -->
+    <div id="view-product-detail" class="page-view hidden py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6 font-semibold uppercase tracking-wider flex-wrap">
+            <a href="#/" class="hover:text-white">Trang Chủ</a>
+            <span>/</span>
+            <a href="#/shop" class="hover:text-white">Cửa Hàng</a>
+            <span>/</span>
+            <span class="text-gray-400" id="pdpBreadcrumbCategory">ÁO THUN</span>
+            <span>/</span>
+            <span class="text-white line-clamp-1" id="pdpBreadcrumbName">Tên sản phẩm</span>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            <!-- Cột trái: Thư viện ảnh HD (5 cols) -->
+            <div class="lg:col-span-5 space-y-3">
+                <div class="aspect-[4/5] bg-darker border border-bordercol overflow-hidden relative group">
+                    <img id="pdpMainImg" src="" alt="Sản phẩm" class="w-full h-full object-cover filter contrast-110 transition-transform duration-500 group-hover:scale-105">
+                    <span id="pdpTagBadge" class="absolute top-3 left-3 text-[10px] font-extrabold tracking-widest px-2.5 py-1 bg-white text-black uppercase">
+                        BEST SELLER
+                    </span>
+                </div>
+                <div id="pdpThumbsGrid" class="grid grid-cols-4 gap-2">
+                    <!-- Thumbnails rendered dynamically -->
+                </div>
+            </div>
+
+            <!-- Cột phải: Thông tin & Đặt hàng (7 cols) -->
+            <div class="lg:col-span-7 space-y-6">
+                <div>
+                    <span id="pdpCategoryBadge" class="text-[10px] uppercase font-bold tracking-wider text-subtext bg-white/10 px-2.5 py-1 inline-block mb-2">ÁO THUN OVERSIZE</span>
+                    <h1 id="pdpTitle" class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white mb-3">
+                        Tên sản phẩm
+                    </h1>
+                    <div class="flex items-baseline gap-3">
+                        <span id="pdpPrice" class="font-display text-3xl font-black text-white">189.000đ</span>
+                        <span id="pdpOriginalPrice" class="text-sm text-gray-500 line-through">240.000đ</span>
+                        <span id="pdpDiscountBadge" class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded">-21%</span>
+                    </div>
+                </div>
+
+                <!-- Thông tin dáng người mẫu -->
+                <div class="p-3.5 bg-card border border-bordercol text-xs text-gray-300 flex items-start gap-3">
+                    <i class="fa-solid fa-user-check text-amber-400 text-sm mt-0.5"></i>
+                    <div>
+                        <strong class="text-white block mb-0.5">Form dáng thực tế:</strong>
+                        <span id="pdpModelInfo">Mẫu nam 1m74 - 63kg mặc Size L chuẩn form Oversize phủ mông nhẹ nhàng.</span>
+                    </div>
+                </div>
+
+                <!-- Chọn kích cỡ (Size) kèm tồn kho từng size -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs uppercase font-bold text-gray-200">Chọn kích cỡ (Size):</span>
+                        <button type="button" onclick="togglePdpSizeTable()" class="text-xs text-gray-400 hover:text-white underline">
+                            <i class="fa-solid fa-ruler-combined mr-1"></i>Bảng thông số số đo áo
+                        </button>
+                    </div>
+                    <div id="pdpSizesContainer" class="flex flex-wrap gap-2.5">
+                        <!-- Rendered by app.js -->
+                    </div>
+                </div>
+
+                <!-- Bảng số đo chi tiết (Ẩn/Hiện) -->
+                <div id="pdpSizeTableBox" class="hidden p-4 bg-darker border border-bordercol text-xs">
+                    <div class="font-bold uppercase text-white mb-2">Thông số đo sản phẩm chuẩn xưởng (cm):</div>
+                    <table class="w-full text-center text-xs text-gray-300">
+                        <thead>
+                            <tr class="border-b border-bordercol text-gray-400 font-bold">
+                                <th class="py-1.5">Size</th>
+                                <th class="py-1.5">Dài Áo</th>
+                                <th class="py-1.5">Vòng Ngực</th>
+                                <th class="py-1.5">Rộng Vai</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pdpSizeTableBody">
+                            <!-- Rendered dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- TÍNH NĂNG THÔNG MINH: SMART SIZE FINDER TẠI CHỖ -->
+                <div class="p-4 bg-card border border-amber-400/30 rounded space-y-3">
+                    <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Smart Size Finder - Gợi Ý Size Chuẩn Form</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div>
+                            <label class="block text-gray-400 mb-1">Chiều cao (cm):</label>
+                            <input type="number" id="pdpFinderHeight" placeholder="VD: 172" class="w-full bg-darker border border-bordercol px-3 py-2 rounded text-white focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-gray-400 mb-1">Cân nặng (kg):</label>
+                            <input type="number" id="pdpFinderWeight" placeholder="VD: 62" class="w-full bg-darker border border-bordercol px-3 py-2 rounded text-white focus:border-white focus:outline-none">
+                        </div>
+                    </div>
+                    <button type="button" onclick="calculatePdpSmartSize()" class="w-full py-2 bg-amber-400/10 hover:bg-amber-400 hover:text-black border border-amber-400/40 text-amber-300 text-xs font-bold uppercase tracking-wider transition-colors rounded">
+                        Gợi ý size phù hợp ngay
+                    </button>
+                    <div id="pdpFinderResult" class="hidden p-2.5 bg-darker border border-emerald-500/30 text-xs text-emerald-300 rounded font-semibold"></div>
+                </div>
+
+                <!-- Số lượng và Nút Mua -->
+                <div class="space-y-3 pt-2 border-t border-bordercol">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs uppercase font-bold text-gray-300">Số lượng:</span>
+                        <div class="flex items-center border border-bordercol bg-darker rounded">
+                            <button onclick="changePdpQuantity(-1)" class="px-3 py-1.5 text-gray-400 hover:text-white">-</button>
+                            <span id="pdpQuantityText" class="px-3 py-1.5 text-xs font-bold text-white">1</span>
+                            <button onclick="changePdpQuantity(1)" class="px-3 py-1.5 text-gray-400 hover:text-white">+</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        <button onclick="addPdpToCart()" class="py-3.5 bg-card hover:bg-neutral-800 border border-white text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors">
+                            <i class="fa-solid fa-cart-plus text-emerald-400"></i> THÊM VÀO GIỎ HÀNG
+                        </button>
+                        <button onclick="buyPdpNow()" class="py-3.5 bg-white hover:bg-gray-200 text-black font-extrabold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-colors shadow-lg">
+                            <i class="fa-solid fa-bolt text-amber-500"></i> MUA NGAY (FAST CHECKOUT)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cam kết chất lượng -->
+                <div class="grid grid-cols-3 gap-3 pt-4 border-t border-bordercol text-center text-[11px] text-gray-400">
+                    <div class="p-2 bg-darker border border-bordercol">
+                        <i class="fa-solid fa-truck-fast text-white text-sm mb-1 block"></i>
+                        <span>Freeship từ 2 sản phẩm</span>
+                    </div>
+                    <div class="p-2 bg-darker border border-bordercol">
+                        <i class="fa-solid fa-arrows-rotate text-white text-sm mb-1 block"></i>
+                        <span>Đổi trả 7 ngày Store Hải Hậu</span>
+                    </div>
+                    <div class="p-2 bg-darker border border-bordercol">
+                        <i class="fa-solid fa-shield-check text-emerald-400 text-sm mb-1 block"></i>
+                        <span>Kiểm tra hàng trước khi trả</span>
+                    </div>
+                </div>
+
+                <!-- Mô tả chi tiết -->
+                <div class="p-4 bg-card border border-bordercol text-xs space-y-2">
+                    <h3 class="font-bold uppercase text-white tracking-wider">Mô tả sản phẩm & Chất liệu:</h3>
+                    <p id="pdpDesc" class="text-gray-300 leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Khối Đánh giá từ khách hàng (Customer Reviews) -->
+        <div class="border-t border-bordercol pt-12 mb-16">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="font-display text-2xl font-extrabold uppercase tracking-tight text-white">ĐÁNH GIÁ TỪ KHÁCH HÀNG</h2>
+                    <p class="text-xs text-gray-400 mt-1">Đánh giá thực tế từ khách mua trực tiếp tại Yên Định & đặt hàng online</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex text-amber-400 text-sm">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <span class="text-sm font-bold text-white">5.0 / 5.0</span>
+                </div>
+            </div>
+
+            <!-- Reviews List -->
+            <div id="pdpReviewsList" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <!-- Rendered by app.js -->
+            </div>
+
+            <!-- Gửi nhận xét -->
+            <div class="p-5 bg-card border border-bordercol text-xs">
+                <h4 class="font-bold uppercase text-white mb-3">Gửi cảm nhận của bạn về sản phẩm này:</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                    <input type="text" id="reviewAuthorInput" placeholder="Họ tên của bạn (VD: Minh Tuấn - Hải Hậu)" class="bg-darker border border-bordercol px-3 py-2 rounded text-white focus:border-white focus:outline-none">
+                    <select id="reviewRatingInput" class="bg-darker border border-bordercol px-3 py-2 rounded text-white focus:border-white focus:outline-none">
+                        <option value="5">⭐⭐⭐⭐⭐ (Rất hài lòng)</option>
+                        <option value="4">⭐⭐⭐⭐ (Hài lòng)</option>
+                        <option value="3">⭐⭐⭐ (Bình thường)</option>
+                    </select>
+                </div>
+                <textarea id="reviewCommentInput" rows="2" placeholder="Cảm nhận về chất vải, form áo, tốc độ giao hàng..." class="w-full bg-darker border border-bordercol p-3 rounded text-white focus:border-white focus:outline-none mb-3"></textarea>
+                <button type="button" onclick="submitProductReview()" class="px-5 py-2.5 bg-white text-black font-extrabold text-xs uppercase tracking-wider rounded hover:bg-gray-200 transition-colors">
+                    Gửi Đánh Giá Ngay
+                </button>
+            </div>
+        </div>
+
+        <!-- Khối Sản phẩm liên quan (Related Products) -->
+        <div class="border-t border-bordercol pt-12">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold tracking-widest text-subtext uppercase">GỢI Ý PHỐI ĐỒ CHUẨN GU</span>
+                <h2 class="font-display text-2xl font-extrabold uppercase tracking-tight text-white mt-1">CÁC MÓN ĐỒ TƯƠNG TỰ BẠN CÓ THỂ THÍCH</h2>
+            </div>
+            <div id="pdpRelatedGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Rendered by app.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 4: CẨM NANG THỜI TRANG & BLOG (BLOG HUB VIEW) -->
+    <div id="view-blog" class="page-view hidden py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6 font-semibold uppercase tracking-wider">
+            <a href="#/" class="hover:text-white">Trang Chủ</a>
+            <span>/</span>
+            <span class="text-white">Cẩm Nang Phối Đồ & Xu Hướng</span>
+        </nav>
+
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <span class="text-xs font-bold tracking-widest text-subtext uppercase">KH_DTS EDITORIAL & STREET STYLE</span>
+            <h1 class="font-display text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white mt-1 mb-3">CẨM NANG PHỐI ĐỒ & XU HƯỚNG GEN Z</h1>
+            <p class="text-xs text-gray-400">Chia sẻ bí quyết mặc đẹp, bảo quản trang phục và cập nhật phong cách thời trang đường phố mới nhất.</p>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-10 text-xs font-bold uppercase tracking-wider" id="blogCategoryTabs">
+            <!-- Rendered by app.js -->
+        </div>
+
+        <!-- Blog Articles Grid -->
+        <div id="blogArticlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
+            <!-- Rendered by app.js -->
+        </div>
+    </div>
+
+    <!-- VIEW 5: CHI TIẾT BÀI VIẾT (ARTICLE DETAIL + SHOP THE LOOK) -->
+    <div id="view-article-detail" class="page-view hidden py-8 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6 font-semibold uppercase tracking-wider flex-wrap">
+            <a href="#/" class="hover:text-white">Trang Chủ</a>
+            <span>/</span>
+            <a href="#/blog" class="hover:text-white">Cẩm Nang</a>
+            <span>/</span>
+            <span class="text-white line-clamp-1" id="artBreadcrumbTitle">Tiêu đề bài viết</span>
+        </nav>
+
+        <article class="space-y-6 mb-12">
+            <div class="space-y-3">
+                <div class="flex items-center gap-3 text-xs text-gray-400 font-semibold uppercase tracking-wider">
+                    <span id="artCategoryBadge" class="px-2.5 py-0.5 bg-white text-black font-extrabold">MIX & MATCH</span>
+                    <span id="artDateText">18/10/2026</span>
+                    <span>•</span>
+                    <span id="artReadTimeText">4 phút đọc</span>
+                </div>
+                <h1 id="artTitle" class="font-display text-2xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
+                    Tiêu đề bài viết
+                </h1>
+                <p id="artExcerpt" class="text-sm text-gray-300 leading-relaxed italic border-l-2 border-white pl-4 py-1">
+                    Tóm tắt bài viết...
+                </p>
+            </div>
+
+            <div class="aspect-video bg-darker border border-bordercol overflow-hidden rounded">
+                <img id="artCoverImg" src="" alt="Cover" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Nội dung chính -->
+            <div id="artContentBody" class="prose prose-invert max-w-none text-xs sm:text-sm text-gray-300 leading-relaxed space-y-4">
+                <!-- Rendered by app.js -->
+            </div>
+        </article>
+
+        <!-- TÍNH NĂNG THÔNG MINH: SHOP THE LOOK WIDGET -->
+        <div id="artShopTheLookSection" class="p-6 bg-card border border-bordercol mb-12 rounded">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-bordercol">
+                <div class="flex items-center gap-2 text-white font-display font-extrabold text-base uppercase tracking-wider">
+                    <i class="fa-solid fa-bag-shopping text-amber-400"></i>
+                    <span>SHOP THE LOOK - CÁC MÓN ĐỒ TRONG BÀI VIẾT NÀY</span>
+                </div>
+                <span class="text-xs text-gray-400 hidden sm:inline">Bấm xem đồ & mua ngay</span>
+            </div>
+            <div id="artShopTheLookGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Rendered by app.js -->
+            </div>
+        </div>
+
+        <div class="text-center pt-6 border-t border-bordercol">
+            <a href="#/blog" class="inline-flex items-center gap-2 px-6 py-3 bg-darker hover:bg-card border border-bordercol text-white text-xs font-bold uppercase tracking-wider transition-colors">
+                <i class="fa-solid fa-arrow-left"></i> Quay lại danh mục Cẩm Nang
+            </a>
+        </div>
+    </div>
+
+    <!-- VIEW 6: TRANG GIỎ HÀNG TOÀN DIỆN (FULL CART VIEW) -->
+    <div id="view-cart" class="page-view hidden py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6 font-semibold uppercase tracking-wider">
+            <a href="#/" class="hover:text-white">Trang Chủ</a>
+            <span>/</span>
+            <span class="text-white">Giỏ Hàng Của Bạn</span>
+        </nav>
+
+        <h1 class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white mb-6">
+            GIỎ HÀNG THỜI TRANG CỦA BẠN
+        </h1>
+
+        <!-- Thanh tiến trình Freeship thông minh -->
+        <div class="p-4 bg-card border border-bordercol mb-6 rounded space-y-2">
+            <div class="flex items-center justify-between text-xs font-bold">
+                <span id="cartProgressBarTitle" class="text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-truck-fast text-emerald-400"></i>
+                    <span>Chính sách Freeship Toàn Quốc</span>
+                </span>
+                <span id="cartProgressBarNotice" class="text-emerald-400">Thêm 1 sản phẩm để Freeship!</span>
+            </div>
+            <div class="w-full bg-darker h-2.5 rounded-full overflow-hidden border border-bordercol">
+                <div id="cartProgressFill" class="bg-gradient-to-r from-amber-400 to-emerald-400 h-full transition-all duration-500" style="width: 50%;"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Cột trái: Danh sách sản phẩm (7 cols) -->
+            <div class="lg:col-span-7 space-y-4">
+                <div id="fullCartItemsList" class="space-y-3">
+                    <!-- Rendered by app.js -->
+                </div>
+                <div class="pt-4 flex items-center justify-between">
+                    <a href="#/shop" class="text-xs text-gray-400 hover:text-white font-bold uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-arrow-left"></i> Tiếp tục chọn đồ
+                    </a>
+                    <button onclick="clearCart()" class="text-xs text-gray-500 hover:text-rose-400">
+                        <i class="fa-solid fa-trash-can mr-1"></i> Xoá toàn bộ giỏ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cột phải: Tổng kết chi phí & Voucher (5 cols) -->
+            <div class="lg:col-span-5 space-y-5">
+                <!-- Chọn phương thức nhận hàng -->
+                <div class="p-4 bg-card border border-bordercol rounded space-y-3 text-xs">
+                    <span class="font-bold uppercase tracking-wider text-white block">Phương thức nhận hàng:</span>
+                    <label class="flex items-center justify-between p-2.5 bg-darker border border-bordercol rounded cursor-pointer hover:border-gray-400">
+                        <div class="flex items-center gap-2">
+                            <input type="radio" name="fullCartShipping" value="haihau" checked onchange="updateCartShipping(this.value); updateFullCartUI();" class="text-white">
+                            <span>Ship Hỏa Tốc Hải Hậu (2H)</span>
+                        </div>
+                        <span id="fullCartFeeHaiHau" class="font-bold text-emerald-400">15.000đ</span>
+                    </label>
+                    <label class="flex items-center justify-between p-2.5 bg-darker border border-bordercol rounded cursor-pointer hover:border-gray-400">
+                        <div class="flex items-center gap-2">
+                            <input type="radio" name="fullCartShipping" value="nationwide" onchange="updateCartShipping(this.value); updateFullCartUI();" class="text-white">
+                            <span>Giao Tiêu Chuẩn Toàn Quốc</span>
+                        </div>
+                        <span id="fullCartFeeNationwide" class="font-bold text-gray-300">25.000đ</span>
+                    </label>
+                </div>
+
+                <!-- Voucher Box -->
+                <div class="p-4 bg-card border border-bordercol rounded space-y-3 text-xs">
+                    <span class="font-bold uppercase tracking-wider text-white block">Mã giảm giá Voucher:</span>
+                    <div class="flex gap-2">
+                        <input type="text" id="fullCartVoucherInput" placeholder="Nhập mã (KHDTS10, FREESHIP...)" class="flex-1 bg-darker border border-bordercol px-3 py-2 rounded text-white uppercase font-bold focus:border-white focus:outline-none">
+                        <button onclick="applyFullCartVoucher()" class="px-4 py-2 bg-white text-black font-extrabold uppercase rounded hover:bg-gray-200 transition-colors">
+                            Áp Dụng
+                        </button>
+                    </div>
+                    <div id="fullCartVoucherMsg" class="hidden font-semibold"></div>
+                </div>
+
+                <!-- Chi tiết hóa đơn -->
+                <div class="p-5 bg-card border border-bordercol rounded space-y-3 text-xs">
+                    <div class="flex justify-between text-gray-400">
+                        <span>Tiền hàng:</span>
+                        <span id="fullCartSubtotal" class="text-white font-medium">0đ</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>Phí vận chuyển:</span>
+                        <span id="fullCartShippingFee" class="text-white font-medium">15.000đ</span>
+                    </div>
+                    <div id="fullCartDiscountRow" class="flex justify-between text-emerald-400 hidden">
+                        <span>Giảm giá Voucher:</span>
+                        <span id="fullCartDiscountAmount" class="font-bold">-0đ</span>
+                    </div>
+                    <div class="flex justify-between text-base font-bold pt-3 border-t border-bordercol text-white">
+                        <span>Tổng thanh toán:</span>
+                        <span id="fullCartFinalTotal" class="font-display text-2xl text-white">0đ</span>
+                    </div>
+
+                    <a href="#/checkout" class="w-full py-4 bg-white text-black font-extrabold text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-gray-200 transition-colors shadow-lg block text-center mt-3">
+                        TIẾN HÀNH THANH TOÁN <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 7: TRANG THANH TOÁN CHUYÊN BIỆT (CHECKOUT VIEW) -->
+    <div id="view-checkout" class="page-view hidden py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6 font-semibold uppercase tracking-wider">
+            <a href="#/" class="hover:text-white">Trang Chủ</a>
+            <span>/</span>
+            <a href="#/cart" class="hover:text-white">Giỏ Hàng</a>
+            <span>/</span>
+            <span class="text-white">Thanh Toán & Đặt Hàng</span>
+        </nav>
+
+        <div class="text-center max-w-xl mx-auto mb-8">
+            <span class="text-[10px] font-bold tracking-widest uppercase bg-white/10 px-3 py-1 text-gray-300">ONE-PAGE CHECKOUT</span>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white mt-2">THÔNG TIN GIAO HÀNG & THANH TOÁN</h1>
+        </div>
+
+        <form id="fullCheckoutForm" onsubmit="submitFullCheckoutOrder(event)" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Cột trái: Form thông tin & Phương thức thanh toán (7 cols) -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- 1. Người nhận -->
+                <div class="p-5 bg-card border border-bordercol rounded space-y-4 text-xs">
+                    <h3 class="font-bold uppercase tracking-wider text-white border-b border-bordercol pb-2 flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-white text-black flex items-center justify-center text-[10px] font-black">1</span>
+                        <span>Thông tin người nhận hàng:</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-bold text-gray-300 mb-1">Họ và tên (*):</label>
+                            <input type="text" id="chkCustomerName" required placeholder="Ví dụ: Nguyễn Văn Khá" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-300 mb-1">Số điện thoại (*):</label>
+                            <input type="tel" id="chkCustomerPhone" required placeholder="Ví dụ: 0912345678" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded text-white focus:border-white focus:outline-none font-mono">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-300 mb-1">Địa chỉ chi tiết (Số nhà/Xóm, Xã, Huyện, Tỉnh) (*):</label>
+                        <input type="text" id="chkCustomerAddress" required placeholder="Ví dụ: Xóm 4, xã Hải Phương, Hải Hậu, Nam Định" class="w-full bg-darker border border-bordercol px-3.5 py-2.5 rounded text-white focus:border-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-300 mb-1">Ghi chú giao hàng:</label>
+                        <input type="text" id="chkCustomerNote" placeholder="Ví dụ: Giao chiều sau 17h, gọi trước khi giao..." class="w-full bg-darker border border-bordercol px-3.5 py-2 rounded text-white focus:border-white focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- 2. Phương thức thanh toán -->
+                <div class="p-5 bg-card border border-bordercol rounded space-y-4 text-xs">
+                    <h3 class="font-bold uppercase tracking-wider text-white border-b border-bordercol pb-2 flex items-center gap-2">
+                        <span class="w-5 h-5 rounded-full bg-white text-black flex items-center justify-center text-[10px] font-black">2</span>
+                        <span>Phương thức thanh toán:</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center gap-3 p-3 bg-darker border border-bordercol rounded cursor-pointer hover:border-gray-400">
+                            <input type="radio" name="chkPaymentMethod" value="vietqr" checked onchange="toggleChkPaymentDisplay('vietqr')" class="text-white">
+                            <div>
+                                <strong class="text-xs block text-white flex items-center gap-1.5">
+                                    <i class="fa-solid fa-qrcode text-emerald-400"></i> Quét VietQR Napas 24/7
+                                </strong>
+                                <span class="text-[10px] text-gray-400">App ngân hàng quét mã chuyển tiền</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-darker border border-bordercol rounded cursor-pointer hover:border-gray-400">
+                            <input type="radio" name="chkPaymentMethod" value="cod" onchange="toggleChkPaymentDisplay('cod')" class="text-white">
+                            <div>
+                                <strong class="text-xs block text-white flex items-center gap-1.5">
+                                    <i class="fa-solid fa-hand-holding-dollar text-amber-400"></i> Thanh toán khi nhận (COD)
+                                </strong>
+                                <span class="text-[10px] text-gray-400">Kiểm tra áo rồi trả tiền mặt</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <!-- Khung VietQR động -->
+                    <div id="chkVietqrBox" class="p-4 bg-darker border border-emerald-500/30 rounded text-center space-y-3">
+                        <div class="text-xs text-gray-300">
+                            Mã VietQR tự động thanh toán: <strong id="chkVietqrAmountText" class="text-emerald-400 text-sm">0đ</strong>
+                        </div>
+                        <div class="inline-block p-2 bg-white rounded-lg shadow-md">
+                            <img id="chkVietqrImage" src="" alt="Mã VietQR" class="w-48 h-48 sm:w-56 sm:h-56 object-contain mx-auto">
+                        </div>
+                        <div class="text-[11px] text-gray-400 space-y-1">
+                            <div>Ngân hàng: <strong id="chkVietqrBankName" class="text-white">MBBank</strong> • STK: <strong id="chkVietqrAccountNo" class="text-white font-mono">0389999999</strong></div>
+                            <div>Chủ tài khoản: <strong id="chkVietqrAccountName" class="text-white">NGUYEN VAN KHA</strong></div>
+                            <div>Nội dung: <strong id="chkVietqrMemo" class="text-amber-400 font-mono">DTS-ORDER</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột phải: Tóm tắt đơn hàng & Hoàn tất (5 cols) -->
+            <div class="lg:col-span-5 space-y-5">
+                <div class="p-5 bg-card border border-bordercol rounded space-y-4 text-xs">
+                    <h3 class="font-bold uppercase tracking-wider text-white border-b border-bordercol pb-2">
+                        Đơn hàng của bạn:
+                    </h3>
+                    <div id="chkItemsSummaryList" class="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                        <!-- Rendered by app.js -->
+                    </div>
+
+                    <div class="space-y-2 pt-3 border-t border-bordercol">
+                        <div class="flex justify-between text-gray-400">
+                            <span>Tiền hàng:</span>
+                            <span id="chkSubtotalText" class="text-white font-medium">0đ</span>
+                        </div>
+                        <div class="flex justify-between text-gray-400">
+                            <span>Phí vận chuyển:</span>
+                            <span id="chkShippingText" class="text-white font-medium">15.000đ</span>
+                        </div>
+                        <div id="chkDiscountRow" class="flex justify-between text-emerald-400 hidden">
+                            <span>Giảm giá:</span>
+                            <span id="chkDiscountText" class="font-bold">-0đ</span>
+                        </div>
+                        <div class="flex justify-between text-base font-bold pt-2 border-t border-bordercol text-white">
+                            <span>Tổng cộng:</span>
+                            <span id="chkFinalTotalText" class="font-display text-2xl text-white">0đ</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-white text-black font-extrabold text-xs uppercase tracking-widest hover:bg-gray-200 transition-colors shadow-lg flex items-center justify-center gap-2 mt-4">
+                        <i class="fa-solid fa-check"></i> XÁC NHẬN HOÀN TẤT ĐƠN HÀNG
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- VIEW 8: TRANG TRA CỨU TIẾN TRÌNH ĐƠN HÀNG (ORDER TRACKING VIEW) -->
+    <div id="view-tracking" class="page-view hidden py-8 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6 font-semibold uppercase tracking-wider">
+            <a href="#/" class="hover:text-white">Trang Chủ</a>
+            <span>/</span>
+            <span class="text-white">Tra Cứu Đơn Hàng</span>
+        </nav>
+
+        <div class="text-center max-w-xl mx-auto mb-8">
+            <div class="w-12 h-12 rounded-full bg-amber-400/10 text-amber-300 flex items-center justify-center text-xl mx-auto mb-3 border border-amber-400/30">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <h1 class="font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white mb-2">TRA CỨU TIẾN TRÌNH ĐƠN HÀNG</h1>
+            <p class="text-xs text-gray-400">Nhập Số điện thoại hoặc Mã đơn hàng (Ví dụ: DTS-...) để theo dõi tình trạng đơn hàng thời gian thực.</p>
+        </div>
+
+        <!-- Search Box -->
+        <div class="p-5 bg-card border border-bordercol rounded mb-8 max-w-xl mx-auto">
+            <form onsubmit="searchOrderTracking(event)" class="flex gap-2 text-xs">
+                <input type="text" id="trackingSearchInput" required placeholder="Nhập Số điện thoại hoặc Mã đơn (DTS-...)" class="flex-1 bg-darker border border-bordercol px-4 py-3 rounded text-white focus:border-white focus:outline-none font-bold">
+                <button type="submit" class="px-6 py-3 bg-white text-black font-extrabold uppercase tracking-wider rounded hover:bg-gray-200 transition-colors">
+                    Tra Cứu
+                </button>
+            </form>
+        </div>
+
+        <!-- Results Area -->
+        <div id="trackingResultsContainer" class="space-y-6">
+            <!-- Rendered by app.js -->
+        </div>
+    </div>
 
     <!-- Footer Section -->
     <footer class="bg-darker text-gray-400 text-xs py-14">
@@ -394,20 +1026,20 @@
                 <div>
                     <h4 class="text-white font-bold uppercase tracking-wider mb-4">DANH MỤC</h4>
                     <ul class="space-y-2.5">
-                        <li><a href="#products" onclick="filterCategory('tshirt')" class="hover:text-white transition-colors">Áo thun Oversize</a></li>
-                        <li><a href="#products" onclick="filterCategory('hoodie')" class="hover:text-white transition-colors">Hoodie & Áo Nỉ</a></li>
-                        <li><a href="#products" onclick="filterCategory('accessory')" class="hover:text-white transition-colors">Mũ & Phụ Kiện Street</a></li>
-                        <li><a href="#products" onclick="filterCategory('all')" class="hover:text-white transition-colors">Tất cả sản phẩm</a></li>
+                        <li><a href="#/shop/tshirt" class="hover:text-white transition-colors">Áo thun Oversize</a></li>
+                        <li><a href="#/shop/hoodie" class="hover:text-white transition-colors">Hoodie & Áo Nỉ</a></li>
+                        <li><a href="#/shop/accessory" class="hover:text-white transition-colors">Mũ & Phụ Kiện Street</a></li>
+                        <li><a href="#/shop" class="hover:text-white transition-colors">Toàn bộ sản phẩm</a></li>
                     </ul>
                 </div>
 
                 <!-- Col 3: Hỗ Trợ Khách Hàng -->
                 <div>
-                    <h4 class="text-white font-bold uppercase tracking-wider mb-4">CHÍNH SÁCH</h4>
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-4">TRẢI NGHIỆM & HỖ TRỢ</h4>
                     <ul class="space-y-2.5">
-                        <li><a href="#size-guide" class="hover:text-white transition-colors">Hướng dẫn chọn size</a></li>
-                        <li><a href="#store" class="hover:text-white transition-colors">Chính sách đổi trả 7 ngày</a></li>
-                        <li><a href="#store" class="hover:text-white transition-colors">Kiểm tra hàng trước khi thanh toán</a></li>
+                        <li><a href="#/blog" class="hover:text-white transition-colors">Cẩm nang phối đồ & Xu hướng</a></li>
+                        <li><a href="#/tracking" class="hover:text-white transition-colors">Tra cứu tiến trình đơn hàng</a></li>
+                        <li><a href="#/cart" class="hover:text-white transition-colors">Giỏ hàng & Khuyến mãi</a></li>
                         <li><a href="admin.html" class="text-amber-400 hover:underline"><i class="fa-solid fa-sliders mr-1"></i>Hệ thống Quản Trị (CMS Admin)</a></li>
                     </ul>
                 </div>

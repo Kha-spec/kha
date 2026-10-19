@@ -20,6 +20,7 @@ function initAdmin() {
     renderAdminOrders();
     renderAdminProducts();
     renderAdminVouchers();
+    renderAdminArticles();
     fillStoreSettings();
     fillHeroBanner();
     renderAdminLookbook();
@@ -103,6 +104,11 @@ function updateBadges() {
     const leads = StoreService.getLeads();
     const leadsBadge = document.getElementById('leadsBadgeCount');
     if (leadsBadge) leadsBadge.textContent = leads.length;
+
+    // Blog articles badge
+    const articles = StoreService.getArticles();
+    const blogBadge = document.getElementById('blogBadgeCount');
+    if (blogBadge) blogBadge.textContent = articles.length;
 }
 
 // 2. PHÂN HỆ QUẢN LÝ ĐƠN HÀNG (OMS)
@@ -844,6 +850,154 @@ function resetDefaultData() {
         adminData = StoreService.loadData();
         initAdmin();
         showToast('Đã khôi phục dữ liệu gốc ban đầu!');
+    }
+}
+
+// 9. QUẢN LÝ BÀI VIẾT & CẨM NANG BLOG (CMS)
+function renderAdminArticles() {
+    const tbody = document.getElementById('adminArticlesTableBody');
+    if (!tbody) return;
+
+    const articles = StoreService.getArticles();
+    updateBadges();
+
+    if (articles.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center py-10 text-gray-500">
+                    Chưa có bài viết nào. Bấm "Thêm Bài Viết Mới" để tạo bài viết đầu tiên!
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = articles.map(art => {
+        const catLabel = art.category === 'mix-match' ? 'Mix & Match' : art.category === 'tips' ? 'Cẩm Nang' : 'Xu Hướng';
+        const relatedSummary = (art.relatedProductIds || []).map(pid => {
+            const p = (adminData.products || []).find(item => item.id === Number(pid));
+            return p ? `<span class="inline-block bg-darker border border-bordercol px-1.5 py-0.5 rounded text-[10px] text-gray-300">#${p.id} ${p.name.slice(0, 16)}...</span>` : '';
+        }).join(' ');
+
+        return `
+            <tr class="hover:bg-white/[0.02] transition-colors">
+                <td class="py-3 px-4">
+                    <img src="${art.image}" alt="${art.title}" class="w-14 h-10 object-cover rounded border border-bordercol">
+                </td>
+                <td class="py-3 px-4 max-w-xs">
+                    <strong class="text-white block line-clamp-1">${art.title}</strong>
+                    <span class="text-gray-400 text-[11px] line-clamp-1">${art.excerpt}</span>
+                </td>
+                <td class="py-3 px-4">
+                    <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 font-bold">${catLabel}</span>
+                </td>
+                <td class="py-3 px-4 text-gray-400 text-[11px] whitespace-nowrap">
+                    ${art.date}<br><small class="text-gray-500">${art.readTime || '4 phút đọc'}</small>
+                </td>
+                <td class="py-3 px-4 max-w-xs">
+                    <div class="flex flex-wrap gap-1">${relatedSummary || '<span class="text-gray-500 italic">Chưa gắn</span>'}</div>
+                </td>
+                <td class="py-3 px-4 text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                        <button onclick="openArticleModal(${art.id})" class="p-1.5 text-xs bg-darker hover:bg-white hover:text-black border border-bordercol rounded text-gray-300 transition-colors" title="Chỉnh sửa bài viết">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteAdminArticle(${art.id})" class="p-1.5 text-xs bg-darker hover:bg-rose-500 hover:text-white border border-bordercol rounded text-gray-400 hover:border-rose-500 transition-colors" title="Xóa bài viết">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function openArticleModal(articleId = null) {
+    const modal = document.getElementById('articleModal');
+    const title = document.getElementById('articleModalTitle');
+    const idInput = document.getElementById('formArticleId');
+    const titleInput = document.getElementById('formArticleTitle');
+    const catSelect = document.getElementById('formArticleCategory');
+    const readTimeInput = document.getElementById('formArticleReadTime');
+    const imgInput = document.getElementById('formArticleImage');
+    const excerptInput = document.getElementById('formArticleExcerpt');
+    const contentInput = document.getElementById('formArticleContent');
+    const relInput = document.getElementById('formArticleRelatedProducts');
+
+    if (!modal) return;
+
+    if (articleId) {
+        const art = StoreService.getArticleById(articleId);
+        if (!art) return;
+        if (title) title.textContent = 'CHỈNH SỬA BÀI VIẾT BLOG';
+        if (idInput) idInput.value = art.id;
+        if (titleInput) titleInput.value = art.title;
+        if (catSelect) catSelect.value = art.category || 'mix-match';
+        if (readTimeInput) readTimeInput.value = art.readTime || '4 phút đọc';
+        if (imgInput) imgInput.value = art.image || '';
+        if (excerptInput) excerptInput.value = art.excerpt || '';
+        if (contentInput) contentInput.value = art.content || '';
+        if (relInput) relInput.value = (art.relatedProductIds || []).join(', ');
+    } else {
+        if (title) title.textContent = 'SOẠN THẢO BÀI VIẾT BLOG MỚI';
+        if (idInput) idInput.value = '';
+        if (titleInput) titleInput.value = '';
+        if (catSelect) catSelect.value = 'mix-match';
+        if (readTimeInput) readTimeInput.value = '4 phút đọc';
+        if (imgInput) imgInput.value = 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=80';
+        if (excerptInput) excerptInput.value = '';
+        if (contentInput) contentInput.value = '<p class="mb-4">Nội dung bài viết chia sẻ phong cách thời trang Streetwear...</p>';
+        if (relInput) relInput.value = '1, 2';
+    }
+
+    modal.classList.remove('hidden');
+}
+
+function closeArticleModal() {
+    const modal = document.getElementById('articleModal');
+    if (modal) modal.classList.add('hidden');
+}
+
+function saveArticleForm(e) {
+    if (e) e.preventDefault();
+    const id = document.getElementById('formArticleId')?.value;
+    const title = document.getElementById('formArticleTitle')?.value;
+    const category = document.getElementById('formArticleCategory')?.value;
+    const readTime = document.getElementById('formArticleReadTime')?.value;
+    const image = document.getElementById('formArticleImage')?.value;
+    const excerpt = document.getElementById('formArticleExcerpt')?.value;
+    const content = document.getElementById('formArticleContent')?.value;
+    const relStr = document.getElementById('formArticleRelatedProducts')?.value || '';
+
+    const relatedProductIds = relStr.split(',').map(s => Number(s.trim())).filter(n => !isNaN(n) && n > 0);
+    const categoryName = category === 'mix-match' ? 'Mix & Match Phong Cách' : category === 'tips' ? 'Cẩm Nang & Bảo Quản' : 'Xu Hướng 2026';
+
+    const payload = {
+        title,
+        category,
+        categoryName,
+        readTime,
+        image,
+        excerpt,
+        content,
+        relatedProductIds
+    };
+
+    if (id) {
+        payload.id = Number(id);
+    }
+
+    StoreService.saveArticle(payload);
+    closeArticleModal();
+    renderAdminArticles();
+    showToast('Đã lưu bài viết blog thành công!', 'success');
+}
+
+function deleteAdminArticle(id) {
+    if (confirm('Bạn có chắc chắn muốn xóa bài viết này không?')) {
+        StoreService.deleteArticle(id);
+        renderAdminArticles();
+        showToast('Đã xóa bài viết!', 'info');
     }
 }
 

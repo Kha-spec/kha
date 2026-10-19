@@ -128,6 +128,56 @@
                 desc: "Freeship Hỏa Tốc nội huyện Hải Hậu"
             }
         ],
+        blogCategories: [
+            { id: "all", name: "Tất Cả Bài Viết" },
+            { id: "mix-match", name: "Mix & Match Phong Cách" },
+            { id: "tips", name: "Cẩm Nang & Bảo Quản" },
+            { id: "trends", name: "Xu Hướng 2026" }
+        ],
+        articles: [
+            {
+                id: 1,
+                slug: "5-cach-phoi-do-streetwear-oversize-cho-nam-gen-z",
+                title: "5 Cách Phối Đồ Streetwear Oversize Chuẩn Gu Gen Z Đi Chơi & Dạo Phố",
+                category: "mix-match",
+                categoryName: "Mix & Match Phong Cách",
+                readTime: "4 phút đọc",
+                date: "18/10/2026",
+                author: "Kh_DTS Stylist",
+                image: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Bí quyết diện áo thun form rộng washed tee và hoodie nỉ bông giúp 'hack dáng', tôn chiều cao và tạo phong thái tự tin cực chất cho các bạn nam từ 15-24 tuổi.",
+                content: "<p class='mb-4'>Streetwear không đơn thuần là quần áo rộng rãi, mà là tuyên ngôn tự do, thể hiện cá tính riêng biệt của bạn trẻ hiện đại. Dưới đây là 3 công thức phối đồ 'bất bại' cực kỳ được ưa chuộng tại Nam Định mùa này:</p><h4 class='text-base font-bold text-white mt-4 mb-2'>1. Áo thun Washed Tee + Quần Cargo túi hộp</h4><p class='mb-4 text-gray-300'>Sự kết hợp giữa chất vải thun cotton 250gsm đã qua xử lý wash xước cùng quần túi hộp tạo cảm giác phóng khoáng, phong trần. Phụ kiện đi kèm chỉ cần một chiếc nón lưỡi trai vintage và đôi sneaker chunky.</p><h4 class='text-base font-bold text-white mt-4 mb-2'>2. Layering: Zip Hoodie khoác ngoài + Áo thun trắng Basic</h4><p class='mb-4 text-gray-300'>Vào những ngày trời se lạnh quanh bờ sông hay dạo phố Yên Định, một chiếc áo thun trơn bên trong kết hợp cùng Hoodie khoác mở khóa vừa giữ ấm vừa tôn phom vai nam tính.</p><h4 class='text-base font-bold text-white mt-4 mb-2'>3. All-Black Minimalism huyền bí</h4><p class='mb-4 text-gray-300'>Nếu bạn chưa biết mặc gì hôm nay, gam màu đen từ đầu đến chân với điểm nhấn là chiếc túi đeo chéo mini sẽ luôn là lựa chọn an toàn và cuốn hút nhất.</p>",
+                relatedProductIds: [1, 2, 5]
+            },
+            {
+                id: 2,
+                slug: "bi-quyet-giat-va-bao-quan-ao-washed-tee-khong-dao-co",
+                title: "Mẹo Giặt & Bảo Quản Áo Thun Washed Acid Bền Màu, Không Dão Cổ",
+                category: "tips",
+                categoryName: "Cẩm Nang & Bảo Quản",
+                readTime: "3 phút đọc",
+                date: "15/10/2026",
+                author: "Khá DTS",
+                image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Nhiều bạn mua áo thun cao cấp về giặt vài lần bị bai dão phần bo cổ áo. Đọc ngay hướng dẫn từ Kh_DTS để áo luôn giữ form chuẩn như mới đập hộp.",
+                content: "<p class='mb-4'>Áo thun cotton 100% định lượng cao 250gsm rất dày dặn nhưng nếu giặt sai cách sẽ dễ bị nhăn hoặc bai nhão bo cổ. Hãy bỏ túi ngay các mẹo sau:</p><h4 class='text-base font-bold text-white mt-4 mb-2'>1. Luôn lộn trái áo trước khi cho vào máy giặt</h4><p class='mb-4 text-gray-300'>Việc lộn trái giúp bề mặt hình in lụa và lớp wash màu không bị ma sát trực tiếp với thành lồng giặt, giữ màu sắc luôn sắc nét.</p><h4 class='text-base font-bold text-white mt-4 mb-2'>2. Dùng túi giặt và phơi ngang thân áo</h4><p class='mb-4 text-gray-300'>Đừng bao giờ móc áo khi ướt sũng vì sức nặng của nước sẽ kéo dãn bo cổ áo. Hãy gập đôi áo và vắt ngang thanh móc phơi ở nơi thoáng gió, tránh ánh nắng gắt trực tiếp.</p>",
+                relatedProductIds: [1, 3]
+            },
+            {
+                id: 3,
+                slug: "xu-huong-thoi-trang-nam-gen-z-2026",
+                title: "Dự Đoán Xu Hướng Thời Trang Nam Gen Z 2026: Phóng Khoáng & Đa Dụng",
+                category: "trends",
+                categoryName: "Xu Hướng 2026",
+                readTime: "5 phút đọc",
+                date: "10/10/2026",
+                author: "Kh_DTS Team",
+                image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80",
+                excerpt: "Phong cách Y2K kết hợp Gorpcore và Streetwear đang định hình lại gu ăn mặc của giới trẻ Việt Nam. Cùng khám phá các item không thể thiếu trong tủ đồ.",
+                content: "<p class='mb-4'>Năm 2026 chứng kiến sự lên ngôi của các trang phục mang tính ứng dụng cao nhưng không kém phần nổi bật. Form dáng boxy fit, vai trễ (dropped shoulder) cùng các chi tiết khóa kéo kim loại 2 chiều hứa hẹn tiếp tục thống trị đường phố giới trẻ.</p><p class='mb-4 text-gray-300'>Hãy ghé trực tiếp Store Kh_DTS tại Thị trấn Yên Định để trải nghiệm và thử đồ thực tế nhé!</p>",
+                relatedProductIds: [2, 4, 7]
+            }
+        ],
         products: [
             {
                 id: 1,
@@ -325,7 +375,9 @@
                         settings: { ...defaultData.settings, ...(parsed.settings || {}) },
                         categories: parsed.categories || defaultData.categories,
                         vouchers: parsed.vouchers || defaultData.vouchers,
-                        products: parsed.products || defaultData.products
+                        products: parsed.products || defaultData.products,
+                        blogCategories: parsed.blogCategories || defaultData.blogCategories,
+                        articles: parsed.articles || defaultData.articles
                     };
                 }
             } catch (e) {
@@ -626,6 +678,67 @@
 
         clearLeads() {
             localStorage.removeItem(LEADS_KEY);
+        },
+
+        // --- QUẢN LÝ BÀI VIẾT & BLOG CẨM NANG ---
+        getBlogCategories() {
+            return this.loadData().blogCategories || defaultData.blogCategories;
+        },
+
+        getArticles() {
+            return this.loadData().articles || defaultData.articles;
+        },
+
+        getArticleById(id) {
+            const articles = this.getArticles();
+            return articles.find(a => a.id === Number(id));
+        },
+
+        getArticleBySlug(slug) {
+            const articles = this.getArticles();
+            return articles.find(a => a.slug === slug);
+        },
+
+        saveArticle(articleData) {
+            const data = this.loadData();
+            data.articles = data.articles || defaultData.articles;
+            if (articleData.id) {
+                const idx = data.articles.findIndex(a => a.id === Number(articleData.id));
+                if (idx > -1) {
+                    data.articles[idx] = { ...data.articles[idx], ...articleData };
+                } else {
+                    data.articles.unshift(articleData);
+                }
+            } else {
+                const newArticle = {
+                    id: Date.now(),
+                    date: new Date().toLocaleDateString('vi-VN'),
+                    author: "Kh_DTS Team",
+                    ...articleData
+                };
+                data.articles.unshift(newArticle);
+            }
+            this.saveData(data);
+            return true;
+        },
+
+        deleteArticle(id) {
+            const data = this.loadData();
+            data.articles = (data.articles || []).filter(a => a.id !== Number(id));
+            this.saveData(data);
+            return true;
+        },
+
+        // --- TRA CỨU ĐƠN HÀNG (Dành cho khách hàng) ---
+        findOrders(query) {
+            if (!query) return [];
+            const cleanQuery = query.trim().toLowerCase();
+            const orders = this.getOrders();
+            return orders.filter(o => {
+                const codeMatch = o.code && o.code.toLowerCase().includes(cleanQuery);
+                const phoneMatch = o.customer && o.customer.phone && o.customer.phone.includes(cleanQuery);
+                return codeMatch || phoneMatch;
+            });
         }
     };
 
